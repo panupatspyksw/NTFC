@@ -147,12 +147,17 @@ span.page {
     color: rgb(84, 47, 189);
     border: solid 5px rgb(84, 47, 189);
 }
-.stc4::before{
+.stc5::before{
+    background: rgb(219, 216, 21);
+    color:  rgb(219, 216, 21);
+    border: solid 5px  rgb(219, 216, 21);
+}
+.stc4::before,.stc8::before,.stc10::before{
     background:  rgb(33, 228, 65);
     color: rgb(33, 228, 65);
     border: solid 5px rgb(16, 196, 46);
 }
-.stc0::before,.stc5::before{
+.stc0::before,.stc6::before,.stc7::before,.stc9::before{
     background:  rgb(182, 16, 16);
     color: rgb(182, 16, 16);
     border: solid 5px rgb(182, 16, 16);
