@@ -12,10 +12,10 @@ const nodemailer = require('nodemailer');
 const { send } = require('process');
 
 var connection = mysql.createConnection({
-	host     : 'localhost',
-	user     : 'root',
-	password : '',
-	database : 'notification'
+	host     : 'lus-cdbr-east-02.cleardb.com',
+	user     : 'bbc5aa79adb978',
+	password : 'bc3f80a0',
+	database : 'heroku_967c364b1d024e2'
 });
 
 // setup router
