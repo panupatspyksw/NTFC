@@ -1,0 +1,42 @@
+.reqmainmenu{
+    text-align: center;
+    display: block;
+    text-align: center;
+}
+.reqmenu{
+    display: inline-block;
+    margin:20px;
+}
+.reqmainmenu .box{
+    border-radius: 30px;
+    background: rgb(224, 224, 224);
+    position: relative;
+    padding: 20px;
+    width: 300px;
+    height: 300px;
+    display: block;
+    text-decoration: none;
+    color: black;
+    transition: .5s;
+}
+/* .reqmainmenu .box .img{
+    background: black;
+    height: 225px;
+    display: block;
+    border-radius: 10px;
+} */
+.box:hover{
+    -webkit-box-shadow: 0px 0px 15px 1px #000000; 
+    box-shadow: 0px 0px 15px 1px #000000;
+    transform: scale(0.95);
+}
+@media only screen and (min-width: 1100px) {
+    .reqmainmenu{
+        text-align: center;
+        display: block;
+        text-align: center;
+        width: 800px;
+        margin: 0 auto;
+    }
+
+}

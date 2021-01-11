@@ -1,0 +1,92 @@
+<%- include("partials/header") %>
+<% var locations, products %>
+<link rel="stylesheet" href="/requestmenu.css">
+<link rel="stylesheet" href="/css/newrequest.css">
+<style>
+    #productname{
+        width: 75%;
+    }
+    #position{
+        width: 25%;
+    }
+</style>
+<!-- #for clone -->
+<fieldset class="listorder" style="display: none;" >
+    <select id="productname" name="productname" required>
+        <option value="" disabled selected hidden>ระบุรายการอุปกรณ์...</option>
+        <% products.forEach(element => { %>
+            <option value="<%=element%>"><%=element%></option>
+        <% }); %>
+    </select>
+    <select id="position" name="position" required>
+        <option value="" disabled selected hidden>ระบุชั้นหรือห้อง...</option>
+        <% locations.forEach(element => { %>
+            <option value="<%=element%>"><%=element%></option>
+        <% }); %>
+
+    </select>
+    <input type="text" id="des" value="" name="des" placeholder="หมายเหตุ">
+    <button type="button" onclick="deleterow(this)"  class="deletebtn"><i class="far fa-trash-alt" ></i></button>
+</fieldset>
+<object data="" id="listimage" style="display: none;" alt="preview" width="130px" height="130px"></object>
+<div class="requestbox">
+    <h1 class="th head">แจ้งซ่อมฝ่ายอาคาร</h1>
+    <form action="" method="POST" enctype="multipart/form-data">
+        <div class="inputbox">
+            <label for="username" class="en inputlabel">TITLE</label>
+            <input class="reqinput" type="text" name="title" list="title" value="" placeholder="title" required autocomplete="off">
+            <datalist id="title">
+                <% console.log(problem)
+                for(var i = 0; i < problem.length; i++){
+                %>
+                <option><%= problem[i].problem_title %></option>
+                <%}%>
+            </datalist>
+        </div>
+        <div class="inputbox">
+            <label for="username" class="en inputlabel">DESCRIPTION</label>
+            <textarea class="desinput" name="description" id="description" value="" placeholder="description" required></textarea>
+        </div>
+        <div class="inputbox">
+            <label for="username" class="en inputlabel">LISTS</label>
+                <div class="listsbox">
+                    <div class="lists">
+                        <fieldset class="listorder" >
+                            <!-- <input type="text" id="productid" name="productid" placeholder="รหัสเครื่อง"> -->
+                            <select id="productname" name="productname" required>
+                                <option value="" disabled selected hidden>ระบุพิ้นที่ในอาคาร...</option>
+                                <% products.forEach(element => { %>
+                                    <option value="<%=element%>"><%=element%></option>
+                                <% }); %>
+                            </select>
+                            <select id="position" name="position" required>
+                                <option value="" disabled selected hidden>ระบุชั้นหรือห้อง...</option>
+                                <% locations.forEach(element => { %>
+                                    <option value="<%=element%>"><%=element%></option>
+                                <% }); %>
+                        
+                            </select>
+                            <input type="text" id="des" value="" name="des" placeholder="หมายเหตุ">
+                            <button type="button" onclick="deleterow(this)"  class="deletebtn"><i class="far fa-trash-alt" ></i></button>
+                        </fieldset>
+                    </div>
+                    <button type="button" id="newbtn">Add new  <i class="fas fa-plus-circle"></i></button>
+                </div>
+                <div class="inputbox">
+                    <label for="username" class="en inputlabel" style="z-index: 1;">IMAGES</label>
+                    <div class="reqinput image">
+                        <input class="en" type="file" name="images" id="imageinput" multiple>
+                        <section id="previewimg">
+                        </section>
+                    </div>
+                </div>
+            <input type="submit" id="submit" value="request" style="margin-top: 20px;">
+        </div>
+    </form>
+</div>
+<script src="/js/requestnew.js"></script>
+
+    
+
+
+<%- include("partials/footer") %>

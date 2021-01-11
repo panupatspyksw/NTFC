@@ -1,0 +1,159 @@
+<%- include("partials/header") %>
+<%
+var title,type,des,requester,receiver,products,images,history
+console.log("receiver "+products)
+%>
+<style>
+    .statuschange{
+        margin: 5px 0;
+    }
+</style>
+<link rel="stylesheet" href="/css/newrequest.css">
+<link rel="stylesheet" href="/css/detail.css">
+    <div class="detailbox">
+        <h1 class="th">รายละเอียด</h1>
+        <div class="th datalist">
+            <legend class="en headlist">TITLE</legend>
+            <div class="data"><%= title %></div>
+        </div>
+        <div class="th datalist">
+            <legend class="en headlist">TYPE</legend>
+            <div class="data"><%= type %></div>
+        </div>
+        <div class="th datalist">
+            <legend class="en headlist">DESCRIPTION</legend>
+            <div class="data des"><%= des %></div>
+        </div>  
+        <div class="datalist">
+            <legend class="en headlist">REQUESTER</legend>
+            <div class="data userinfo">
+                <span class="name th"><%= requester.user_firstname + " " + requester.user_lastname %></span> <br>
+                <span class="email th">EMAIL : <%= requester.user_email %></span><br>
+                <span class="phone th">PHONE : <%= requester.user_phone %></span>
+            </div>
+        </div>  
+        <div class="datalist">
+            <legend class="en headlist">RECEIVER</legend>
+            <div class="data userinfo">
+                <%
+                if(receiver!="รอเจ้าหน้าที่รับเรื่อง"){
+                %>
+                <span class="name th"><%= receiver.user_firstname + " " + receiver.user_lastname %></span> <br>
+                <span class="email th">EMAIL : <%= receiver.user_email %></span><br>
+                <span class="phone th">PHONE : <%= receiver.user_phone %></span>
+                <%
+                }else{
+                %>
+                <span class="name th"><%= receiver %></span>
+                <%}%>
+            </div>
+        </div>
+
+        <div class="datalist">
+            <legend class="en headlist">LISTS</legend>
+            <% if(products.length > 0){
+            for(var i=0; i < products.length; i++){
+            %>
+            <div class="data listdata th">
+                <% if(type == "ประเภทอุปกรณ์คอมพิวเตอร์"){%>
+                <div class="id"><span class="hdata">รหัสเครื่อง:</span><%=products[i].product_ID%></div>
+                <%}%>
+                <% if(type == "ประเภทส่วนต่างๆ ภายในอาคาร"){%>
+                    <div class="nameandlo"><span class="name"><span class="hdata">บริเวณ:</span><%=products[i].product_name%></span><span class="location"><span class="hdata">ที่ตั้ง:</span><%=products[i].product_location_id%></span></div>
+                <%}
+                else{%>
+                <div class="nameandlo"><span class="name"><span class="hdata">ชื่ออุปกรณ์:</span><%=products[i].product_name%></span><span class="location"><span class="hdata">ที่ตั้ง:</span><%=products[i].product_location_id%></span></div>
+                <%}%>
+                <div class="des"><span class="hdata">หมายเหตุ:</span><%=products[i].product_des%></div>             
+            </div>
+            <% }}
+            else{
+            %>
+            <div class="th">ไม่มีรายการที่สั่งซ่อม</div>
+            <%
+            }
+            %>
+        </div>
+        <div class="datalist">
+            <legend class="en headlist">IMAGES</legend>
+            <div class="data imgdata">
+                <% if(images.length > 0){
+                    for(var i=0; i < images.length; i++){
+                %>
+                <div class="imagebox" tabindex="0" onclick="imagefullscreen(this)"><i class="close fas fa-search" "></i><img class="imagelist" src="/uploads/<%= images[i].image_name %>" alt="ww"></div>
+                <% }}
+                else{
+                %>
+                <div class="data th">ไม่มีรุปภาพประกอบ</div>
+                <%
+                }
+                %>
+            </div>
+        </div>
+        <div class="datalist">
+            <legend class="en headlist">HISTORY</legend>
+            <div class="data timelinef th">
+                <div class="timeline">
+                    <% if(history.length > 0){
+                        for(var i=0; i < history.length; i++){
+                            var current_datetime = history[i].history_created;
+                            let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate() + " " + current_datetime.getHours() + ":" + current_datetime.getMinutes() + ":" + current_datetime.getSeconds() 
+                            console.log(formatted_date)
+                            %>
+
+                    <div class="container right">
+                      <div class="content">
+                        <span class="th"><%= history[i].req_status_title %></span>
+                        <p class="th"><%= formatted_date %></p>
+                        <p class="th">โดย <%= history[i].history_createdbyn %></p>
+                        <p class="th">หมายเหตุ : <%= history[i].history_des %></p>
+                      </div>
+                    </div>
+                    <%}}%>
+                </div>
+            </div>
+  
+        </div>
+        <form action="" method="post" class="statuschange">
+        <div class="inputbox">
+        <label for="username" class="en inputlabel">DESCRIPTION TO REQUESTER</label>
+        <input class="reqinput" type="text" name="des" value="" placeholder="ระบุเวลาที่จะเข้าไปดำเนินการหรือข้อความถึงผู้แจ้ง" required  autocomplete="off">
+        </div>
+        <div style="margin-top: 20px;">
+        <input type="submit" value="รับเรื่อง" name="status">
+        <% if(user_department!=4){%>
+        <input type="submit" class="cancel" value="ยกเลิก" name="status">
+        <% } %>
+        </form>
+        </div>
+    </div>
+
+    <div class="fullscreenimage" >
+        <div><i id="closeimg" onclick="imageclose(this)" tabindex="0" class="far fa-times-circle fa-5x"></i></div>
+        <div class="imagetofull"></div>
+    </div>
+
+
+
+
+
+    <script>
+        var fullimg = document.querySelector(".fullscreenimage");
+        function imageclose(x){
+            fullimg.classList.remove("show");
+            document.body.style.overflowY = "scroll";
+        }
+        function imagefullscreen(x){
+            var imgg = x.lastElementChild.src;
+            console.log(fullimg.lastElementChild.style)
+            fullimg.lastElementChild.style.background = "url(" +imgg +")";
+            fullimg.lastElementChild.style.backgroundSize = "contain";
+            fullimg.lastElementChild.style.backgroundRepeat = "no-repeat";
+            fullimg.lastElementChild.style.backgroundPosition = "center";
+
+            fullimg.classList.add("show")
+            document.body.style.overflow = "hidden";
+        }
+ 
+    </script>
+<%- include("partials/footer") %>

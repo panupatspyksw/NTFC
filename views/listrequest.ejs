@@ -1,0 +1,85 @@
+<%- include("partials/header") %>
+<link rel="stylesheet" href="css/table.css">
+<% 
+var requestlists
+%>
+<div class="tablebox">
+        <h1 class="th head" style="text-align: center;">รายการที่คุณแจ้ง</h1>
+        <p class="th" style="text-align: center;">(คลิกแถวในแต่ละรายการเพื่อดูรายละเอียดและอัพเดทสถานะ)</p> 
+        <div class="tabletools"><div class="searchbar"><input type="search" id="searchbox"><button class="searchicon" id="searchbtn" onclick="searchenter()"><i class="fas fa-search"></i></button></div><div class="pagination"><span class="page">ฟหกหฟกฟหก</span> <div tabindex="0" onclick="" class="back"><i class="fas fa-angle-left fa-1x"></i></div><div tabindex="0" onclick="" class="next"><i class="fas fa-angle-right fa-1x"></i></div></div></div>
+        <div class="tablelist">
+        <% if(requestlists.length <= 0){ %>
+        <div class="list" style="text-align: center;">
+            <div style="text-align: center;">ไม่มีรายการแจ้ง</div>
+        </div>
+        <% } 
+
+        %>
+        <% for(var i = 0; i < requestlists.length; i++){%>
+        
+        <div onclick="checkid(this)" tabindex="0" class="th list" style="font-weight: 400;" id="<%= requestlists[i].id %>">
+            <div class="by"><%= requestlists[i].id %> </div><div class="tt"> <%= requestlists[i].title %><span class="des"><%= requestlists[i].des%></span></div><div class="status stc<%=requestlists[i].statusid%>"><%= requestlists[i].status %></div><div class="date"><%= requestlists[i].createdat %></div>
+        </div>
+        <% } %>
+        </div>
+</div>
+<script src="/js/table.js"></script>
+<script>
+
+var search = document.getElementById("searchbox")
+search.addEventListener("keyup", function(event) {
+if (event.keyCode === 13) {
+document.getElementById("searchbtn").click();
+
+}
+})
+search.addEventListener("input", function(val) {
+
+})
+function searchenter(){
+    var alllsit = $( "div" ).filter(".list");
+            var searchtext = ""
+              if(search.value == ""){
+                  searchtext = "blank"
+              }
+              else{
+                  searchtext = search.value
+              }
+              $.ajax({
+                type : "GET",
+                url : "/searchrequestlist/"+searchtext,
+                success: function(res)
+                {
+                  alllsit.remove();
+                  if(res.length > 0){
+                    $.each(res, function(i, ele){
+                            $('.tablelist').append(
+                            '<div onclick="checkid(this)" id="'+res[i].id+'" tabindex="0" class="th list" style="">'+
+                            '<div class="by">'+res[i].id+'</div><div class="tt">'+res[i].title+'<span class="des">'+res[i].des+'</span></div><div class="status stc'+res[i].statusid+'">'+res[i].status+'</div><div class="date">'+res[i].createdat+'</div>'+
+                            '</div>'
+                            )
+                    })
+                    listtable()
+                  }
+                  else{
+                  $('.tablelist').append('<div class="list" style="text-align: center;"><div style="text-align: center;" class="th">ไม่มีรายการแจ้ง</div></div>');
+                  listtable()  
+                  $(".page").text("0 รายการ")
+
+                }
+                },
+                error : function(e) {
+                }
+              });  
+
+    }
+
+function checkid(ele){
+    console.log(ele.id)
+    window.location.href = "/requestlist/"+ele.id;
+}
+
+listtable()
+
+</script>
+<%- include("partials/footer") %>

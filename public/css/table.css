@@ -1,0 +1,253 @@
+.tablelist{
+    border-top: solid 1px rgb(141, 141, 141);
+}
+.tablebox{
+    background: white;
+    width: 80%;
+    padding-top: 20px;
+    margin: 0 auto;
+}
+
+.tablebox p{
+    margin-bottom: 10px;
+}
+
+.tabletools{
+    padding: 0 10px;
+    display: flex;
+    width: 100%;
+}
+
+.searchbar{
+    outline: none;
+    display: inline-block;
+}
+.searchbar input{
+    padding: 5px;
+    line-height: 30px;
+    height: 30px;
+    outline: none;
+    border: solid 1px gray;
+}
+button.searchicon{
+    border:none;
+    background:rgb(0, 94, 218);
+    color: white;
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    outline: none;
+
+}
+
+.pagination{
+    height: 40px;
+    margin-left: auto;
+}
+.pagination div{
+    outline: none;
+    margin: 0px 3px;
+    cursor: pointer;
+    display: inline-block;
+    padding: 5px 10px;
+    border: solid 1px gray;
+}
+.pagination i{
+    transform: scale(1.5);
+}
+
+.list{
+    outline: none;
+    cursor: pointer;
+    /* outline: none; */
+    width: 100%;
+    text-align: left;
+    /* overflow: hidden; */
+    /* white-space: nowrap; */
+    font-size: 14px;
+    line-height: 40px;
+    padding: 0 10px;
+    border-bottom: solid 1px rgb(141, 141, 141);
+}
+
+
+.list:hover{
+    -webkit-box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.39); 
+    box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.39);
+}
+
+.list div{
+    display: inline-block;
+    vertical-align: middle;
+}
+span.page {
+    font-weight: 400;
+    font-family: 'Kanit', sans-serif;
+}
+.by{
+    width: 15%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+.status{
+    width: 20%;
+}
+.date{
+    width: 8%;
+}
+
+.date,.by,.tt,.status{
+    font-weight: 600;
+}
+.des::before{
+    content: "-";
+    margin: 0 5px;
+}
+.des{
+    color: rgb(75, 75, 75);
+}
+.tt{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
+   width: 57%;
+   padding: 0 10px;
+}
+.des{
+    color: rgb(104, 104, 104);
+}
+.status::before{
+    display: inline-block;
+    vertical-align: middle;
+    width: 0px;
+    height: 0px;
+    padding: 0;
+    margin: 0;
+    content: "";
+    border-radius: 70px;
+    margin-right: 5px;
+}
+
+.stc1::before{
+    background: rgb(161, 161, 161);
+    color: rgb(161, 161, 161);
+    border: solid 5px rgb(161, 161, 161);
+}
+.stc2::before{
+    background: rgb(22, 83, 196);
+    color: rgb(22, 83, 196);
+    border: solid 5px rgb(22, 83, 196);
+}
+.stc3::before{
+    background: rgb(84, 47, 189);
+    color: rgb(84, 47, 189);
+    border: solid 5px rgb(84, 47, 189);
+}
+.stc4::before{
+    background:  rgb(33, 228, 65);
+    color: rgb(33, 228, 65);
+    border: solid 5px rgb(16, 196, 46);
+}
+.stc0::before,.stc5::before{
+    background:  rgb(182, 16, 16);
+    color: rgb(182, 16, 16);
+    border: solid 5px rgb(182, 16, 16);
+}
+@media only screen and (max-width: 1050px){
+    .tt{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        vertical-align: middle;
+       width: 55%;
+       padding: 0 10px;
+    }
+    .date{
+        width: 10%;
+    }
+    
+    .tablebox{
+        background: white;
+        width: 92%;
+        padding-top: 20px;
+        margin: 0 auto;
+    }
+    .list{
+        outline: none;
+        cursor: pointer;
+        /* outline: none; */
+        width: 100%;
+        text-align: left;
+        /* overflow: hidden; */
+        /* white-space: nowrap; */
+        font-size: 12px;
+        line-height: 40px;
+        padding: 0 10px;
+        border-bottom: solid 1px rgb(141, 141, 141);
+    }
+}
+@media only screen and (max-width: 760px){
+    .tablebox p{
+        font-size: 12px;
+    }
+    .list{
+        padding: 8px 10px;
+        display: block;
+        position: relative;
+        font-size: 12px;
+        width: 100%;
+    }
+    .list div{
+        display: block;
+        vertical-align: middle;
+        line-height: 15px;
+        width: 100%;
+    }
+    .tt{
+        padding: 0px;
+    }
+    .des{
+        display: block;
+    }
+    .des::before{
+        content: none;
+    }
+    /* .by,.status,.date{
+        position: absolute;
+    } */
+    .tablebox{
+        width: 95%;
+    }
+    .date{
+        position: absolute;
+        text-align: right;
+        top: 8px;
+        right: 10px;
+    }
+    }
+    @media only screen and (max-width: 520px){
+    .tabletools{
+        padding: 0 10px;
+        display: block;
+        border-bottom: solid 1px gray;
+        width: 100%;
+    }
+    .searchbar,.pagination{
+        text-align: right;
+        margin-left: 0;
+        display: block;
+    }
+
+    .pagination div:nth-of-type(2){
+    margin-right: 0;
+    }
+
+    .pagination{
+        margin-top: 8px;
+    }
+}
+    

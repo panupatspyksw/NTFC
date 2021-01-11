@@ -1,0 +1,100 @@
+<%- include("partials/header") %>
+<link rel="stylesheet" href="css/table.css">
+<% 
+var requestlists
+<!-- console.log(listupdate)  -->
+%>
+
+<div class="tablebox">
+    <h1 class="th head" style="text-align: center;">รายการแจ้งซ่อมที่เข้ามาใหม่</h1>
+    <p class="th" style="text-align: center;">(คลิกแถวในแต่ละรายการเพื่อดูรายละเอียดรับรายการแจ้งหรือยกเลิกรายการแจ้ง)</p> 
+    <div class="pagination"></div>
+    <div class="tablelist">
+    <% if(requestlists.length <= 0){ %>
+    <div class="list" style="text-align: center;">
+        <div style="text-align: center;" class="th">ไม่มีรายการแจ้ง</div>
+    </div>
+    <% } 
+
+    %>
+    <% for(var i = 0; i < requestlists.length; i++){%>
+    <div onclick="checkid(this)" tabindex="0" class="th list" id="<%= requestlists[i].id %>">
+        <div class="by"><%= requestlists[i].id %> </div><div class="tt"> <%= requestlists[i].title %><span class="des"><%= requestlists[i].des%></span></div><div class="status stc<%=requestlists[i].statusid%>"><%= requestlists[i].status %></div><div class="date"><%= requestlists[i].createdat %></div>
+    </div>
+    <% } %>
+    </div>
+</div>
+<script>
+    function checkid(ele){
+        console.log(ele.id)
+        window.location.href = "/newlist/"+ele.id;
+    }
+    var alllsit = $( "tr" ).filter("#list");
+    $( document ).ready(function() {
+
+        setInterval(()=> {
+
+            ajaxGet()
+        },5000)
+
+              function ajaxGet(){
+              var alllsit = $( "div" ).filter(".list");
+              $.ajax({
+                type : "GET",
+                url : "/updatelistnew",
+                success: function(listupdate)
+                {
+                    if(listupdate.length == alllsit.length){
+                        console.log("no new request")
+                    }
+                    if(listupdate.length > alllsit.length){
+                        alllsit.remove()
+                        console.log(listupdate)
+                        $.each(listupdate, function(i, ele){
+                            $('.tablelist').append(
+                            '<div onclick="checkid(this)" tabindex="0" class="th list" id="'+listupdate[i].id+'">'+
+                            '<div class="by">'+listupdate[i].id+'</div><div class="tt">'+listupdate[i].title+'<span class="des">'+listupdate[i].des+'</span></div><div class="status stc'+listupdate[i].statusid+'">'+listupdate[i].status+'</div><div class="date">'+listupdate[i].createdat+'</div>'+
+                            '</div>'
+                            )
+                        })
+                        alert("new request")
+                    }
+                    if(listupdate.length < alllsit.length){
+                        alllsit.remove()
+                        console.log(listupdate)
+                        if(listupdate.length > 0){
+                        $.each(listupdate, function(i, ele){
+                            $('.tablelist').append(
+                            '<div onclick="checkid(this)" tabindex="0" class="th list" id="'+listupdate[i].id+'">'+
+                            '<div class="by">'+listupdate[i].id+'</div><div class="tt">'+listupdate[i].title+'<span class="des">'+listupdate[i].des+'</span></div><div class="status stc'+listupdate[i].statusid+'">'+listupdate[i].status+'</div><div class="date">'+listupdate[i].createdat+'</div>'+
+                            '</div>'
+                            )
+                        })
+                        alert("request get receive by other")
+                        }
+                        else{
+                            $('.tablelist').append(
+                            '<div class="list" style="text-align: center;">'+
+                            '<div style="text-align: center;">ไม่มีรายการแจ้ง</div>'+
+                            '</div>'   
+                            )                    
+                        }
+                    }
+                },
+                error : function(e) {
+                  alert("cannot update list")
+                }
+              });  
+
+              resetData()
+              }
+
+
+              function resetData(){
+                $("input#comment").val("");
+              }
+
+              
+          })
+</script>
+<%- include("partials/footer") %>

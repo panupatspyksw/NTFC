@@ -1,0 +1,601 @@
+
+
+<%- include("partials/header") %>
+
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    body{
+    background: #007CB7 ;
+    overflow-x: hidden;
+    height: 1000px;
+    padding-bottom: 500px;
+    }
+    .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    }
+
+    .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+    }
+
+    .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    }
+
+    .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    }
+
+    input:checked + .slider {
+    background-color: #2196F3;
+    }
+
+    input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+    border-radius: 34px;
+    }
+
+    .slider.round:before {
+    border-radius: 50%;
+    }
+
+    .profile{
+        width: 500px;
+        margin: 0 auto;
+    }
+    .profilebox{
+        text-align: center;
+        background: white;
+        width: 100%;
+        border-radius: 50px;
+        padding: 50px;
+        position: relative;
+    }
+
+    #profileicon{
+        color: rgb(110, 110, 110);
+
+    }
+
+    .profileinput{
+        width: 100%;
+        padding: 0 10px;
+        font-size: 20px;
+        line-height: 40px;
+        border: solid 2px rgb(182, 182, 182);
+        border-radius: 10px;
+        background: white;
+    }
+    input:focus{
+        outline: none;
+    }
+
+    /* input[type="submit"].profileinput{
+        background-color: red;
+        width: 70%;
+    } */
+    .inputbox{
+        position: relative;
+        margin-top: 20px;
+
+    }
+    .inputbox label{
+        position: absolute;
+        background: white;
+        top: -20%;
+        left: 10px;
+        padding: 0 5px;
+    }
+
+    #eyepassword{
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 5%;
+        opacity: 0.7;
+        transition: opacity .3s;
+        cursor: pointer;
+    }
+
+    #eyepassword:hover{
+        opacity: 1;
+    }
+
+    input[type="submit"]:disabled {
+    opacity: .5;
+    }
+
+    .notification {
+    width: 100%;
+    height: 50px;
+    display: block;
+    color: white;
+    line-height: 50px;
+    padding-left: 20px;
+    background: black;
+    position: fixed;
+    bottom: -50px;
+    animation: slide-top 2s ease-in-out 2 alternate ;
+    }
+
+    @keyframes slide-top {
+    0%{
+        bottom: -50px;
+    }
+    40%{
+        bottom: 0;
+    }
+    100%{
+        bottom: 0;
+
+    }
+    }
+
+    @media only screen and (max-width: 550px) 
+    {
+        .profile
+        {
+        width: 300px;
+        margin: 0 auto;
+        }
+        .profilebox{
+        text-align: center;
+        background: white;
+        width: 100%;
+        border-radius: 50px;
+        padding: 20px;
+        position: relative;
+        }
+        .inputbox input{
+
+        font-size: 13px;
+    }
+
+    }
+    .profilechange{
+        display: block;
+        background: blue;
+        position: relative;
+        text-align: center;
+    }
+    .profileimage i{
+        position: absolute;
+        bottom: 10px;
+        right: 0%;
+        background: black;
+        color: white;
+        padding: 10px;
+        border-radius: 50px;
+        transform: scale(1.5);
+    }
+    .profileimage{
+        border-radius: 120px;
+        position: relative;
+        display: block;
+        background: red;
+        width: 150px;
+        height: 150px;
+        margin: 0 auto;
+    }
+    
+    #profileimage{
+        background: blue;
+        line-height: 0;
+        width: 40px;
+        height: 40px;
+        background: url(https://image.freepik.com/free-photo/image-human-brain_99433-298.jpg);
+        background-size: cover;
+        background-position: center;
+    }
+    .profilemenupage{
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        background: rgba(0, 0, 0, 0.500);
+        top: 0%;
+        z-index: 10000;
+        transition: ease 0.5s;
+    }
+    .profilemenupage.hide{
+        background: rgba(0, 0, 0, 0);
+        pointer-events: none;
+    }
+    .profileboxmenu{
+        z-index: 10001;
+        text-align: center;
+        position: fixed;
+        display: block;
+        top: 50%;
+        left: 50%;
+        opacity: 1;
+        transform: translate(-50%,-50%) scale(1);
+        background: white;
+        border-radius: 30px;
+        overflow: hidden;
+        transition: ease 0.5s;
+    }
+    .profileboxmenu.hide{
+        text-align: center;
+        position: fixed;
+        display: block;
+        top: 50%;
+        left: 50%;
+        opacity: 0;
+        transform: translate(-50%,-50%) scale(0);
+        background: white;
+        border-radius: 30px;
+        overflow: hidden;
+        
+    }
+    .profileboxmenu div{
+        cursor: pointer;
+        outline: none;
+        line-height: 50px;
+        width: 300px;
+        border-bottom: solid 1px rgb(189, 189, 189);
+    }
+    .profileboxmenu .head{
+        cursor: default;
+        font-weight: 600;
+        font-size: 18px;
+        padding: 10px;
+    }
+    .profileboxmenu .upload{
+        color: rgb(0, 89, 255);
+        font-weight: 600;
+    }
+    .profileboxmenu .delete{
+        color: rgb(255, 0, 34);
+        font-weight: 600;
+    }
+    #addoredit{
+        cursor: pointer;
+    }
+ 
+</style>
+<%
+var profiledata
+%>
+<div class="profilemenupage en hide" id="profilemenupage" onclick="notclickmenu()">
+</div>
+    <div class="profileboxmenu en hide" id="profileboxmenu">
+    <div class="head">Change Profile Photo</div>
+    <div class="upload" tabindex="0" onclick="uploadphoto()">Upload Photo</div>
+    <div class="delete" tabindex="0" onclick="deletephoto()">Remove Current Photo</div>
+    <div class="close" tabindex="0" onclick="outmenu()">Cancel</div>
+    </div>
+    <div class="profile">
+        <div class="profilebox">
+            <form id="uploadForm"  enctype="multipart/form-data" style="opacity: 0; height: 0px; overflow: hidden;">
+                <input type="file" name="uploadFile" id="uploadFile">
+                <input type="submit" value="upload">
+            </form>
+
+            <form action="/profile" method="POST" name="profileinfo" id="imageinput" enctype="multipart/form-data">
+            <%
+            var path = "/";
+            var icon = "fa-plus";
+            if(profiledata.profileimg != "defaultprofile.png"){
+            path+= "uploads/";
+            icon = "fa-pencil-alt";
+            }%>
+            <div class="profileimage" id="profilebg" style="background:url(<%=path+profiledata.profileimg%>); background-size: cover; background-position: center;">
+                <i tabindex="0" style="outline: none;" onclick="openmenu()" class="fas <%=icon%>" id ="addoredit"></i>
+            </div>
+            <div class="inputbox">
+                <label for="username" class="en inputlabel">USERID</label>
+                <input class="profileinput" type="text" name="userid" id="" value="<%=profiledata.user_id%>" placeholder="user id" readonly required>
+            </div>
+            <div class="inputbox">
+                <label for="username" class="en inputlabel">USERNAME</label>
+                <input class="profileinput" type="text" name="username" id="" value="<%=profiledata.user_username%>" placeholder="username" readonly required>
+            </div>
+            <div class="inputbox">
+            <label for="username" class="en inputlabel">FIRSTNAME</label>
+            <input class="profileinput" type="text" name="firstname" id="" value="<%=profiledata.user_firstname%>" placeholder="firstname" readonly required>
+            </div>
+            <div class="inputbox">
+            <label for="username" class="en inputlabel">LASTNAME</label>
+            <input class="profileinput" type="text" name="lastname" id="" value="<%=profiledata.user_lastname%>" placeholder="lastname" readonly required>
+            </div>
+            <div class="inputbox">
+            <label for="username" class="en inputlabel">EMAIL</label>
+            <input class="profileinput" type="text" name="email" id="" value="<%=profiledata.user_email%>" placeholder="email" required>
+            </div>
+            <div class="inputbox">
+            <label for="username" class="en inputlabel">PHONE</label>
+            <input class="profileinput" type="text" name="phone" id="" value="<%=profiledata.user_phone%>" placeholder="phone" required>
+            </div>
+            <div class="inputbox">
+            <label for="username" class="en inputlabel">PASSWORD</label>
+            <input class="profileinput" type="password" name="password" id="password" value="<%=profiledata.user_password %>" placeholder="password" required><span class="fas fa-eye" id="eyepassword"></span>
+            </div>
+            <div style="text-align: left; width: 100%; display: flex; margin-top: 20px;">
+            <h4 class="th" style="line-height: 34px; display: inline-block; margin-right: auto;">ตั้งค่าการแจ้งเตือนทางอีเมล </h4>
+            <% if(notifyforreq == 1){%>
+            <label class="switch" style="margin-left: auto;">
+                <input type="checkbox" name="notify" id="notify" value="1"checked>
+                <span class="slider round"></span>
+            </label>
+            <%}else{%>
+            <label class="switch" style="margin-left: auto;">
+                <input type="checkbox" name="notify" id="notify" value="1">
+                <span class="slider round"></span>
+            </label>
+            <%}%>
+            </div>
+            <div class="inputbox">
+            <input class="profileinput" type="submit" value="update" name="update" id="submit" disabled>
+            </div>
+
+            </form>
+        </div>
+    </div>
+    <div id="loading-page">
+        <div class="loadingbox">
+            <div id="loading" class="loadingio-spinner-spinner-fxtqdxje3e"><div class="ldio-0tdfcaemcnn">
+                <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%
+    if(profiledata["update"]){
+    %>
+        <div class="en notification">
+            Profile save.
+        </div>
+        
+    <%
+    }
+    %>
+    <script>
+        var addoredit = document.getElementById("addoredit");
+        var notload = true;
+        var submit = document.getElementById("submit");
+        var profileinput = document.querySelectorAll("input.profileinput");
+        var switchnotify = document.querySelector("input#notify");
+        var check1 = false;
+        var check2 = false;
+        var eye = document.getElementById("eyepassword")
+        var password = document.getElementById("password")
+        var profilebg = document.getElementById("profilebg")
+        var headerprofilebg = document.getElementById("usericon")
+        
+
+        function changeprofilebg(imgname,checkdefault){
+
+        if(checkdefault == true){
+        profilebg.style.background = "url(/defaultprofile.png)";
+        profilebg.style.backgroundSize = "cover";
+        profilebg.style.backgroundPosition = "center";
+        headerprofilebg.style.background = "url(/defaultprofile.png)";
+        headerprofilebg.style.backgroundSize = "cover";
+        headerprofilebg.style.backgroundPosition = "center";
+        }
+        else{
+        profilebg.style.background = "url(/uploads/"+imgname;
+        profilebg.style.backgroundSize = "cover";
+        profilebg.style.backgroundPosition = "center";
+        headerprofilebg.style.background = "url(/uploads/"+imgname;
+        headerprofilebg.style.backgroundSize = "cover";
+        headerprofilebg.style.backgroundPosition = "center";
+        }
+        }
+        eye.addEventListener("click",function(){
+            if(password.type == "password"){
+                password.type = "text";
+                eye.classList.remove("fa-eye")
+                eye.classList.add("fa-eye-slash");
+
+            }
+            else{
+                password.type = "password";
+                eye.classList.add("fa-eye")
+                eye.classList.remove("fa-eye-slash");
+            }
+        })
+
+
+        switchnotify.addEventListener("click",function(){
+                check1 = !check1;
+                if(check1 == true){
+                    submit.disabled = false
+                }
+                else if(check1 == false && check2 == false){
+                    submit.disabled = true
+                }
+        })
+        profileinput.forEach(function(ele){
+            var olddata = "";
+            olddata = ele.value;
+            ele.addEventListener("input",function(){
+                if(ele.value != olddata){
+                check2 = true;
+                submit.disabled = false;
+                }
+                else if(ele.value == olddata && check1 == false){
+                check2 = false;
+                submit.disabled = true
+                }
+            })
+        })
+
+        
+
+        submit.addEventListener("click",function(event){
+            if(notload){
+            event.preventDefault();
+            notload = false;
+            }
+            document.getElementById("loading-page").style.display = "block";
+            document.body.style.overflow = "hidden";
+
+            setTimeout(function () {
+                submit.click();
+            }, 2000);
+        })
+
+
+    var fileInput =  document.getElementById('uploadFile'); 
+    fileInput.addEventListener("change",function(e)
+    {
+        var filePath = fileInput.value; 
+        // Allowing file type 
+        var allowedExtensions =  /(\.jpg|\.jpeg|\.png|\.gif)$/i; 
+        if (!allowedExtensions.exec(filePath)) { 
+            alert('Invalid file type'); 
+            fileInput.value = ''; 
+            return false; 
+        }  
+
+        var fileReader = new FileReader()
+        // var pasteimg = cloneelement(document.querySelector("#listimage"))
+        fileReader.readAsDataURL(fileInput.files[0]);
+        fileReader.onload = (e) => 
+        {
+            console.log(e.target.result)
+            // pasteimg.data = e.target.result;
+            // preview.append(pasteimg)
+            // pasteimg = cloneelement(document.querySelector("#listimage"))
+            $("#uploadForm").submit();
+
+        }
+    })
+
+
+        function uploadphoto(){
+            fileInput.click();
+        }
+
+        $("#uploadForm").submit(function() {
+            var data = new FormData($('#uploadForm')[0]);
+            $.ajax({
+                url:'/uploadprofileimage',
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                cache: false,
+                data: data,
+                success: function(res){
+                    changeprofilebg(res,false)
+                    alert("Profile Image update");
+                    refreshsession();
+                    addoredit.classList.remove("fa-plus")
+                    addoredit.classList.add("fa-pencil-alt")
+                    outmenu()
+                },
+                error: function(){
+                }
+            })
+            return false
+
+        });
+
+    function deletephoto(){
+            $.ajax({
+                url:'/deleteprofileimage',
+                type: 'POST',
+                cache: false,
+                success: function(defaultimg){
+                    alert("delete profile image success");
+                    changeprofilebg("",true)
+                    outmenu()
+                    refreshsession();
+                    addoredit.classList.remove("fa-pencil-alt")
+                    addoredit.classList.add("fa-plus")
+                },
+                error: function(){
+                    alert("Profile Image delete");
+                }
+            })
+            return false
+        }
+
+    function outmenu(){
+        $(".profileboxmenu").addClass("hide")
+        $(".profilemenupage").addClass("hide")
+        document.body.style.overflowY = "scroll";
+    }
+    function openmenu(){
+        if(addoredit.classList.contains("fa-plus")){
+        fileInput.click();
+        }
+        else{
+        $(".profileboxmenu").removeClass("hide")
+        $(".profilemenupage").removeClass("hide")
+        document.body.style.overflowY = "hidden"
+        }
+    }
+    refreshsession()
+    function refreshsession(){
+            $.ajax({
+                url:'/refreshsession',
+                type: 'GET',
+                cache: false,
+                success: function(res){
+                    // alert("refresh session success")
+                    console.log(res)
+                },
+                error: function(){
+                }
+            })
+        }
+
+    var checknotmenuelement = true;
+
+    $("#profileboxmenu").hover(function(){
+        checknotmenuelement = false;
+    })
+    $("#profileboxmenu").mouseout(function(){
+        checknotmenuelement = true;
+    })
+    function notclickmenu(){
+            $(".profileboxmenu").addClass("hide")
+            $(".profilemenupage").addClass("hide")
+            document.body.style.overflowY = "scroll";
+
+    }
+    
+
+    </script>
+
+
+
+<%- include("partials/footer") %>

@@ -1,0 +1,228 @@
+<%- include("partials/header") %>
+
+<style>
+
+  .chart{
+    display: inline-block;
+    width: 45%;
+    height: 400px;
+    padding: 20px 0;
+    background-color: white;
+    margin: 0% auto;
+  }
+  .content{
+    text-align: center;
+    padding: 20px;
+  }
+</style>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+
+  google.charts.load('current', {'packages':['corechart']});
+  google.load("visualization", "1", {packages:["corechart"]});
+      
+  
+  $( document ).ready(function() {
+    function timeConvert(n) {
+    var num = n;
+    var hours = (num / 60);
+    var rhours = Math.floor(hours);
+    var minutes = (hours - rhours) * 60;
+    var rminutes = Math.round(minutes);
+    return "" + rhours + " hour(s) and " + rminutes + " minute(s).";
+    }
+
+
+    
+    function dashboard1(x){
+      const date = [["Element", "Amount" ]]
+      var sumamount = 0;
+      if(x.length > 0){
+      x.forEach(element => {
+        date.push([String(element.day),element.amount])
+        sumamount += element.amount
+      });
+      }
+      else{
+        date.push(["0",0])
+      }
+      google.charts.setOnLoadCallback(drawVisualization);
+            function drawVisualization() 
+            {
+            // Some raw data (not necessarily accurate)
+            var data = google.visualization.arrayToDataTable(date);
+
+            var options = {
+              title : 'รายการแจ้งที่ได้รับในแต่ละวันที่สำเร็จลุล่วงในเดือนนี้ (ทั้งหมด '+sumamount+' รายการ)',
+              vAxis: {title: 'จำนวนรายการแจ้ง'},
+              hAxis: {title: 'วันที่'},
+              seriesType: 'bars',
+              legend: { position: "none" },
+              'chartArea': {'width': '70%', 'height': '80%'},
+              sliceVisibilityThreshold :0
+
+            //   series: {5: {type: 'line'}}
+            };
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1, {
+            type: 'string',
+            role: 'annotation',
+            sourceColumn: 1,
+            calc: 'stringify'
+            }]);
+            var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+            chart.draw(view, options);
+            }
+
+    }
+    function dashboard2(x){
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['รายการที่ยกเลิก',     x.CANCEL],
+          ['รายการใหม่',      x.NEWREQ],
+          ['รายการที่รอรับเรื่อง',  x.RECIEVE],
+          ['รายการที่ส่งซ่อมพัสดุ', x.PASSADU],
+          ['รายการที่ไม่ผ่านอนุมัติซ่อม',  x.DISAPPROVE],
+          ['รายการที่สำเร็จ',    x.SUCCESS]
+        ]);
+
+        var options = {
+          title: 'จำนวนรายการแจ้งจำแนกตามสถานะการดำเนินการภายในเดือนนี้',
+          pieSliceText: 'value-and-percentage',
+          'chartArea': {'width': '70%', 'height': '80%'},
+          sliceVisibilityThreshold :0
+
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div2'));
+        chart.draw(data, options);
+      }
+
+    }
+    function dashboard3(x){
+      const amount = [["Element", "Amount" , { role: 'annotation' }]]
+      const time = [["Element", "Time" , { role: 'annotation' }]]
+      x.forEach(element => {
+        var y = -100;
+        var positive = 0;
+        if (element.timeused >= 0){
+          positive = element.timeused
+        }
+        else{
+          positive =- element.timeused
+        }
+        positive = positive / 60;
+        positive = parseFloat(positive.toFixed(2))
+        amount.push([element.name,element.received,String(element.received)])
+        time.push([element.name,positive,timeConvert(positive)])
+      });
+      console.log(amount,time)
+      
+      google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable(amount);
+      var data2 = google.visualization.arrayToDataTable(time);
+
+      var options1 = {
+        title: "จำนวนรายการแจ้งที่ดำเนินการสำเร็จลุล่วงของพนักงานแต่ละคน",
+
+        bar: {groupWidth: '50%'},
+        legend: { position: 'none' },
+        'chartArea': {'width': '70%', 'height': '50%'},
+
+      };
+      var options2 = {
+        title: "ระยะเวลาที่ใช้ในการดำเนินการตามจำนวนรายการแจ้งที่สำเร็จลุล่วงของพนักงานแต่ละคน",
+
+        bar: {groupWidth: '50%'},
+        legend: { position: 'none' },
+        'chartArea': {'width': '70%', 'height': '50%'},
+
+      };
+      var chart = new google.visualization.BarChart(document.getElementById('barchart_values'));
+      var chart2 = new google.visualization.BarChart(document.getElementById('barchart_values2'));
+      chart.draw(data, options1);
+      chart2.draw(data2, options2);
+    }
+
+    }
+
+    requestdata()
+    reqamountbytype()
+    amountandtime()
+    function requestdata()
+    {
+    $.ajax({
+            type : "GET",
+            url : "/reqcountbyday",
+            success: function(reqcountbyday)
+            {
+              dashboard1(reqcountbyday)
+            },
+            error : function(e) {
+            alert("cannot update list")
+            }
+          });  
+          
+    }
+    function reqamountbytype(){
+      $.ajax({
+            type : "GET",
+            url : "/reqcountbytype",
+            success: function(reqcountbytype)
+            {
+              dashboard2(reqcountbytype[0])
+
+              
+            },
+            error : function(e) {
+            alert("cannot update list")
+            }
+          }); 
+    }
+    function reqamountbytype(){
+      $.ajax({
+            type : "GET",
+            url : "/reqcountbytype",
+            success: function(reqcountbytype)
+            {
+              dashboard2(reqcountbytype[0])
+
+              
+            },
+            error : function(e) {
+            alert("cannot update list")
+            }
+          }); 
+    }
+    function amountandtime(){
+      $.ajax({
+            type : "GET",
+            url : "/amountandtime",
+            success: function(amountandtime)
+            {
+              dashboard3(amountandtime)
+            },
+            error : function(e) {
+            alert("cannot update list")
+            }
+          }); 
+    }
+})
+</script>
+<div class="content" class="th">
+<% if(reqcountbyday.length > 0){ %>
+<div class="chart" id="chart_div" ></div>
+<div class="chart" id="chart_div2" ></div>
+<div class="chart" id="barchart_values" ></div>
+<div class="chart" id="barchart_values2" ></div>
+<% }
+else{ %>
+  <div class="th" style="background: white; display: block; width: 50%; line-height: 50px; padding: 10px; margin: 20vh auto;">เดือนนี้ยังไม่มีรายการแจ้งซ่อมเข้ามาใหม่</div>
+<%
+}
+%>
+</div>
+<%- include("partials/footer") %>

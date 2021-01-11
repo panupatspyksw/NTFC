@@ -1,0 +1,309 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.en.headlist{
+font-family: 'Roboto', sans-serif;
+font-weight: 500;
+font-size: 12px;
+}
+.en{
+    font-family: 'Roboto', sans-serif;
+
+}
+.th{
+font-family: 'Kanit', sans-serif;
+}
+p.th{
+    font-family: 'Kanit', sans-serif;
+    font-weight: 400;
+}
+
+
+
+.detailbox{
+    border-radius: 20px;
+background: white;
+width: 70%;
+display: block;
+margin: 0 auto;
+padding: 50px;
+text-align: center;
+position: relative;
+}
+
+.datalist{
+    margin-top: 20px;
+    background: white;
+    border: solid 1px rgb(173, 173, 173);
+    line-height: 40px;
+    border-radius: 10px;
+    position: relative;
+    text-align: left;
+}
+.headlist{
+    line-height: 20px;
+    position: absolute;
+    top: -10px;
+    left: 5px;
+    background: white;
+    padding: 0 5px;
+}
+.datalist .data{
+    padding: 0 10px;
+}
+.listdata{
+    margin: 10px 0;
+    line-height: 25px;
+}
+.data.des,.userinfo,.imgdata{
+    line-height: 20px;
+    margin: 10px 0;
+}
+.data.listdata{
+    display: block;
+}
+.data.listdata div{
+    border: solid 1px rgb(184, 184, 184);
+    border-top: none;
+}
+.data.listdata div:nth-child(1){
+    border-top: solid 1px rgb(184, 184, 184);
+}
+.data.listdata .name{
+    width: 70%;
+    display: block;
+}
+.data.listdata .location{
+    width: 30%;
+    border-left: solid 1px rgb(184, 184, 184);
+}
+.data.listdata .nameandlo{
+    display: flex;
+}
+.hdata{
+    padding: 0 5px;
+    margin-right: 0px;
+    display: inline-block;
+    font-weight: 500;
+    font-family: 'Kanit', sans-serif;
+
+}
+
+.imagelist{
+    width:100%;
+    height:100%;
+}
+.imagebox{
+    width:150px;
+    background-color: black;
+    height:150px;
+    position: relative;
+    display: inline-block;
+    outline: none;
+    cursor: pointer;
+    transition: .3s;
+}
+.imagebox:hover{
+    transform: scale(0.9);
+    -webkit-box-shadow: 0px 0px 10px 1px #000000c9;
+    box-shadow: 0px 0px 10px 1px #000000c9;
+}
+
+
+.close::before{
+    background-color: rgb(26, 26, 26);
+    padding: 10px;
+    position: absolute;
+    display: block;
+    color: white;
+    border-radius: 50px;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+@media only screen and (max-width: 650px){
+    .imagebox{
+    width:100px;
+    background-color: black;
+    height:100px;
+    position: relative;
+    display: inline-block;
+    outline: none;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.detailbox{
+background: white;
+padding: 20px;
+width: 90%;
+display: block;
+margin: 0 auto;
+text-align: center;
+font-size: 12px;
+}
+.imagelist{
+    width:100px;
+    height:100px;
+}
+}
+
+.fullscreenimage{
+background: rgba(0, 0, 0, 0);
+height: 100vh;
+width: 100%;
+top: 0%;
+position: fixed;
+transition: .5s all;
+pointer-events: none;
+}
+.fullscreenimage.show{
+background: rgba(0, 0, 0, 0.904);
+pointer-events: inherit;
+z-index: 10000;
+}
+.imagetofull{
+ height: 90vh;
+ width: 90vw;
+ position: absolute;
+top: 50%;
+left: 50%;
+transform-origin: center;
+transform: translate(-50%,-50%) scale(0);
+background:url(https://www.porcelanosa.co.nz/wp-content/uploads/2019/04/Mirage-Dark-400x800.jpg);
+background-size: contain;
+background-repeat: no-repeat;    
+background-position: center;
+transition: all .5s ;
+
+}
+.fullscreenimage.show .imagetofull{
+transform: translate(-50%,-50%) scale(1);
+
+}
+#closeimg{
+cursor: pointer;
+right: -100%;
+top: 30px;
+z-index: 1;
+outline: none;
+position: absolute;
+opacity: 0.9;
+transition: .5s all;
+color: white;
+}
+#closeimg:hover{
+opacity: 1;
+}
+
+.fullscreenimage.show #closeimg{
+right: 30px;
+
+}
+
+* {
+box-sizing: border-box;
+}
+
+/* Set a background color */
+
+/* The actual timeline (the vertical ruler) */
+.timeline {
+position: relative;
+max-width: 1200px;
+margin: 0 auto;
+}
+
+/* The actual timeline (the vertical ruler) */
+.timeline::after {
+content: '';
+position: absolute;
+width: 6px;
+background-color: rgb(121, 121, 121);
+top: 5px;
+bottom: 0;
+left: 0%;
+}
+
+/* Container around content */
+.container {
+padding: 0px ;
+position: relative;
+background-color: inherit;
+width: 50%;
+}
+
+/* The circles on the timeline */
+.container::after {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: rgb(90, 90, 90);
+    /* border: 4px solid #FF9F55; */
+    top: 2px;
+    border-radius: 50%;
+    z-index: 1;
+}
+    
+    
+.container:nth-child(1):after {
+    background-color: rgb(0, 81, 255);
+}
+
+/* Fix the circle for containers on the right side */
+.right::after {
+left: -5px;
+}
+
+/* The actual content */
+.content {
+padding: 0px 0px 10px 30px;
+background-color: white;
+position: relative;
+line-height: 20px;
+}
+
+/* Media queries - Responsive timeline on screens less than 600px wide */
+@media screen and (max-width: 600px) {
+/* Place the timelime to the left */
+.timeline::after {
+left: 0px;
+}
+
+/* Full-width containers */
+.container {
+width: 100%;
+padding-right: 25px;
+}
+
+/* Make sure that all arrows are pointing leftwards */
+.container::before {
+left: 60px;
+border: medium solid white;
+border-width: 10px 10px 10px 0;
+border-color: transparent white transparent transparent;
+}
+
+
+
+/* Make sure all circles are at the same spot */
+.left::after, .right::after {
+left: px;
+}
+
+/* Make all right containers behave like the left ones */
+.right {
+left: 0%;
+}
+}
+
+.timelinef{
+margin: 10px 25px;
+line-height: 25px;
+}

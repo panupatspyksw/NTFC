@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/header.css">
+    <link rel="stylesheet" href="/fontstyle.css">
+    <link rel="stylesheet" href="/loading.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
+</head>
+<% 
+var user_usertype 
+
+%>
+<body>
+    <div id="header">
+        <div id="boxheader" class="">
+            <div id="Hleft">
+                <a href="/"><img id="logo" src="/SWU_College_Social_Communication_Innovation_EN_White.png" alt=""></a>
+            </div>
+            <div id="Hright">
+                <div id="menubox">
+                <span class="changetoburger">
+                <a class="menulink" href="/request"><div class="link">REQUEST</div></a>
+                <a class="menulink" href="/requestlist"><div class="link">YOUR REQUEST<span class="pointred"><%= countstatus[0] | 0 %></span></div></a>
+                <%if(user_usertype == 2){%>
+                <a class="menulink" href="/receivelist"><div class="link">RECEIVED<span class="pointred"><%= countstatus[1] | 0 %></span></div></a>
+                <a class="menulink" href="/newlist"><div class="link">NEW REQUEST<span class="pointred" id="newreq"><%= countstatus[2] | 0 %></span></div></a>
+                <%}%>
+                <%if(user_usertype == 3){%>
+                    <a class="menulink" href="/dashboard"><div class="link">DASHBOARD</div></a>
+                <%}%>
+                
+                </span>
+                <%
+                var path
+                if(profileimg != "defaultprofile.png"){
+                    path= "/uploads/"+profileimg;
+                }
+                else{
+                    path= "/"+profileimg;
+                }
+                %>
+                <a tabindex="0" class="menulink" onclick="showandhide(this)"><div class="link"><span id="usericon" style="width: 50px; height: 50px; background: url(<%=path%>); background-size: cover; background-position: center; display: inline-block; border-radius: 50px;"></span></div></a>
+                <span class="usermenu">
+                    <div class="usermenubox">
+                    <!-- <span id="arrowmenu" class="fas fa-caret-up fa-3x"></span> -->
+                    <a><span style="font-size: 12px;">LOGIN AS</span><br><%= user_username %></a>
+                    <a href="/profile">Profile</a>
+                    <a href="/logout">Sign out</a>
+                    </div>
+                </span>
+                </div>
+                <div class="burgerbox" id="burgerbtn" onclick="burgeraction(document.getElementById('burgerinside'))">
+                    <div class="burger" id="burgerinside" onclick="">
+                        <div class="bar1"></div>
+                        <div class="bar2"></div>
+                        <div class="bar3"></div>
+                    </div>     
+                </div>             
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+        var header = document.getElementById("boxheader");
+        var frameheader = document.getElementById("header");
+        var logo = document.getElementById("logo");
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            header.classList.add("scroll")
+            frameheader.style.background = "rgba(0, 0, 0, 1)";
+            logo.classList.add("small")
+        } else {
+            header.classList.remove("scroll")
+            frameheader.style.background = "transparent";
+            logo.classList.remove("small")
+
+        }
+        }
+
+        
+
+        function burgeraction(x) {
+        document.querySelector(".changetoburger").classList.toggle("slide")
+        x.classList.toggle("change");
+
+        }
+
+        function showandhide(x){
+            var usermenu = document.querySelector(".usermenu")
+            console.log(x.classList.contains('show'))
+            if(usermenu.classList.contains('show')){
+                usermenu.classList.remove('show')
+            }
+            else{
+                usermenu.classList.add('show')
+            }
+            x.onblur = function(){
+                usermenu.classList.remove('show')
+            }
+        }
+
+
+        $( document ).ready(function() {
+
+        setInterval(()=> {
+
+            ajaxGet()
+        },5000)
+
+        function ajaxGet(){
+        var alllsit = $( "tr" ).filter("#list");
+        $.ajax({
+            type : "GET",
+            url : "/updatecountlist",
+            success: function(numonheader)
+            {
+                if ($("#newreq").length && $("#newreq").html() != numonheader.count) 
+                {
+                    $("#newreq").html(""+numonheader.count);
+                    if(window.location.pathname != "/newlist"){
+                    alert("newrequest")
+                    }
+                }
+            },
+            error : function(e) {
+            alert("cannot update list")
+            }
+        });  
+
+      }
+
+  })
+
+
+    </script>
+  
+  <div id="spacegap " style="height: 100px;"></div>

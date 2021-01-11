@@ -1,0 +1,50 @@
+*{
+    padding: 0%;
+    margin:0%;
+    box-sizing: border-box;
+}
+body
+{
+    background: #007CB7 ;
+    overflow:hidden;
+}
+.inputround{
+    padding: 0 10px;
+    font-size: 20px;
+    line-height: 40px;
+    width: 300px;
+    border: solid 2px rgb(182, 182, 182);
+    border-radius: 50px;
+    background: white;
+}
+h1{
+    text-align: center;
+}
+input:focus{
+    outline: none;
+}
+form{
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background: white;
+    padding: 5%;
+    border-radius: 30px;
+}
+.loginbtn{
+    border: none;
+    width: 200px;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50px;
+    background-color: rgb(4, 72, 161);
+    color: white;
+    /* border: solid 2px rgb(182, 182, 182); */
+    cursor: pointer;
+}
+input{
+    display: block;
+
+    margin: 10px auto;
+}

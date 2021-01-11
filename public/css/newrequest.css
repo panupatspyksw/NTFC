@@ -1,0 +1,234 @@
+
+    ::-webkit-input-placeholder { /* Edge */
+        font-family: 'Kanit', sans-serif;
+    }
+      
+      :-ms-input-placeholder { /* Internet Explorer */
+        font-family: 'Kanit', sans-serif;
+    }
+      
+      ::placeholder {
+        font-family: 'Kanit', sans-serif;
+    }
+    
+    .requestbox{
+        border-radius: 20px;
+        background: white;
+        width: 70%;
+        display: block;
+        margin: 0 auto;
+        padding: 50px;
+        text-align: center;
+        position: relative;
+    }
+    .reqinput{
+        width: 100%;
+        padding: 0 10px;
+        font-size: 20px;
+        line-height: 40px;
+        border: solid 2px rgb(182, 182, 182);
+        border-radius: 10px;
+        background: white;
+    }
+
+    .desinput{
+        width: 100%;
+        padding: 0 10px;
+        padding-top: 10px;
+        font-size: 20px;
+        border: solid 2px rgb(182, 182, 182);
+        border-radius: 10px;
+        background: white;
+    }
+
+    input:focus,textarea{
+        outline: none;
+    }
+
+    /* input[type="submit"].reqinput{
+        background-color: red;
+        width: 70%;
+    } */
+    .inputbox{
+        position: relative;
+        margin-top: 20px;
+
+    }
+    .inputbox label.inputlabel{
+        position: absolute;
+        background: white;
+        top: -5px;
+        left: 10px;
+        padding: 0 5px;
+    }
+    .listsbox{
+        border: solid 2px rgb(182, 182, 182);
+        border-radius: 10px;
+        background: white;
+        padding: 10px;
+
+    }
+    .listorder{
+        background: rgb(233, 232, 232);
+        border: none;
+        padding-right: 50px;
+        margin-top: 10px;
+        text-align: left;
+        width: 100%;
+        display: block;
+        animation: slide-top .3s ease-in;
+        transform-origin: top;
+    }
+
+
+    @keyframes slide-top {
+    0%{
+        transform: scaleY(0);
+        opacity: 0;;
+    }
+
+    100%{
+        transform: scaleY(1);
+        opacity: 1;
+
+    }
+    }
+
+    #productid, #productname, #position, #des{
+        border: none;
+        border: solid 1px rgb(206, 206, 206);
+        border-right: none;
+        height: 30px;
+        padding-left: 10px;
+        display: inline-block;
+        float: left;
+    }
+
+    #productid{
+        width: 25%;
+
+    }
+    #productname{
+        width: 50%;
+    }
+    #position{
+        width: 25%;
+    }
+    #des{
+        width: 100%;
+        border-top: none;
+    }
+    .deletebtn{
+        position: absolute;
+        width: 50px;
+        padding: 0 0;
+        background: #fc3d39;
+        border:none;
+        color: white;
+        outline: none;
+        cursor: pointer;
+        transition: .5s;
+        display: inline-block;
+        height: 60px;
+    }
+    .deletebtn i{
+        transition: .3s;
+    }
+
+    .deletebtn:hover{
+        background: #ac2624;
+    }
+
+    .deletebtn:hover i{
+        transform: scale(0.90);
+    }
+
+    select{
+        outline: none;
+    }
+
+    #newbtn i{
+        transform: scale(0.90);
+    }
+
+    #newbtn{
+        margin-top: 10px;
+        width: 200px;
+        border-radius: 50px;
+        border:none;
+        outline: none;
+        background: rgb(28, 141, 62);
+        height: 50px;
+        font-size: 20px;
+        border: none;
+        text-align: center;
+        color: white;
+        cursor: pointer;
+        text-transform: uppercase;
+        transition: background-color .3s, opacity .5s;
+        opacity: 0.9;
+    }
+
+    #newbtn:hover{
+        opacity: 1;
+    }
+    #imageinput {
+  color: transparent;
+  width: 150px;
+    }
+.reqinput.image{
+    text-align: left;
+    opacity: 0.9;
+    transition: .5s ease;
+    background: transparent;
+    position: relative;
+    z-index: 0;
+}
+
+.reqinput.image:hover{
+    opacity: 1;
+    background: transparent;
+}
+
+#imageinput::-webkit-file-upload-button {
+  visibility: hidden;
+}
+    #imageinput::before {
+        margin: 10px 0;
+
+        text-align: center;
+  content: 'UPLOAD IMAGE';
+  color: white;
+  display: inline-block;
+  background:rgb(28, 141, 62);
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  height: 30px;
+  width: 150px;
+  line-height: 30px;
+  border-radius: 20px;
+  font-weight: 400;
+  font-size: 10pt;
+    }
+
+#previewimg{
+    display: block;
+
+}
+
+#previewimage{
+    display: flex;
+}
+
+    @media only screen and (max-width: 650px){
+    .requestbox{
+        background: white;
+        width: 95%;
+        display: block;
+        margin: 0 auto;
+        padding: 10px;
+        text-align: center;
+    }
+    }

@@ -1,0 +1,280 @@
+
+        
+
+    body{
+        background: url(/background-01.jpg) ;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+
+    /* width */
+    ::-webkit-scrollbar {
+    width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+    }
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+    background: #888; 
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+    }
+
+
+
+    *{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    #header{
+        z-index: 1999;
+        font-family: 'Roboto', sans-serif;
+        letter-spacing: 2px;
+        -webkit-font-smoothing: antialiased;
+        font-weight: 400;
+        font-size: 16px;
+        position: fixed;
+        width: 100%;
+        background: rgba(0, 0, 0, 0);
+        transition: .5s all;
+    }
+    img#logo{
+        width: 180px;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: .5s all;
+    }
+    img#logo.small{
+        width: 130px;
+    }
+    /* #Hleft{
+
+    } */
+    #Hright{
+        display: flex;
+        margin-left: auto;
+    }
+    #boxheader{
+        height: 90px;
+        width: 1100px;
+        position: relative;
+        margin: 0px auto;
+        /* background: red; */
+        display: flex;
+        transition: .5s all;
+    }
+    #boxheader.scroll{
+        height: 80px;
+    }
+
+    #menubox{
+        height: 100%;
+    }
+    a.menulink {
+        opacity: 0.7;
+        display: inline-block;
+        position: relative;
+        text-align: center;
+        /* background: blue; */
+        text-decoration: none;
+        color: white;
+        height: 100%;
+        padding: 0px 15px;
+        transition: opacity .5s ;
+    }
+    a#proimg.menulink{
+        padding: 0px 0px;
+        display: inline-block;
+    }
+    a.menulink:hover{
+        opacity: 1;
+    }
+    a div.link{
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        display: inline-block;
+    }
+    /* #user menu */
+    #usericon{
+        vertical-align: top;
+        cursor: pointer;
+    }
+
+    #arrowmenu{
+        position: absolute;
+        display: block;
+        right: 0;
+        top: -25%;
+        /* background:wheat */
+    }
+
+    .usermenu{
+        width: 150px;
+        display: block;
+        position: absolute;
+        right: 0%;
+        text-align: right;
+        background: black;
+        transform: scaleY(0);
+        transform-origin: top;
+        transition: .5s;
+    }
+    .usermenu.show{
+        transform: scaleY(1);
+    }
+    a:focus{
+    outline: none;
+    }
+
+    .usermenu a{
+        text-decoration: none;
+        color: white;
+        opacity: 0.7;
+        text-align: left;
+        display: block;
+        padding: 20px 20px;
+        transition: opacity .5s ,background-color .5s;
+    }
+    .usermenu a:hover{
+        opacity: 1;
+        background: rgb(32, 32, 32, 1);
+
+
+    }
+    /* #burger menu */
+    .burgerbox{
+        cursor: pointer;
+        padding: 0 15px;
+        margin-left: 5px;
+        display: none;
+    }
+
+    .burger {
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    }
+
+    .bar1, .bar2, .bar3 {
+    width: 40px;
+    height: 4px;
+    background-color: rgb(255, 255, 255);
+    margin: 6px 0;
+    transition: 0.4s;
+    }
+
+    .change .bar1 {
+    -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+    transform: rotate(-45deg) translate(-9px, 6px);
+    }
+
+    .change .bar2 {opacity: 0;}
+
+    .change .bar3 {
+    -webkit-transform: rotate(45deg) translate(-8px, -6px);
+    transform: rotate(45deg) translate(-8px, -6px);
+    }
+
+    .pointred{
+        text-align: center;
+        display: inline-block;
+        background: red;
+        padding: 0 5px 2px 5.5px;
+        border-radius: 50px;
+    }
+
+                    @media only screen and (max-width: 1100px) {
+                        #boxheader{
+                        padding-left: 10px;
+                        /* height: 110px; */
+                        width: 100%;
+                        position: relative;
+                        margin: 0px auto;
+                        /* background: red; */
+                        display: flex;
+                        transition: height .5s;
+                        }
+                        a.menulink {
+                            font-size: 14px;
+                        }
+                    }
+            
+            
+                    @media only screen and (max-width: 780px) {
+                        #usericon{
+                            vertical-align: middle;
+                        }
+
+                        img#logo{
+                        width: 130px;
+                        position: relative;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        transition: .5s all;
+                    }
+                        img#logo.small{
+                            width: 110px;
+                        }
+            
+                        .changetoburger{
+                        width: 100vw;
+                        z-index: 2000;
+                        background: black;
+                        height: 100vh;
+                        padding-top: 100px;
+                        display: block;
+                        position: fixed;
+                        top: 0%;
+                        right: -100vw;
+                        transition: right .5s ease-in;
+                        }
+                        .changetoburger.slide{
+                        right: 0vw;
+                        }
+                        .burgerbox{
+                        position: relative;
+                        z-index: 2001;
+                        cursor: pointer;
+                        padding-left: 0;
+                        margin-left: 0px;
+                        display: block;
+                        }
+                        .changetoburger a.menulink:nth-child(1){
+                            border-top: 1px solid rgb(219, 219, 219);
+                        }
+                        .changetoburger a.menulink{
+                            border-bottom: 1px solid rgb(219, 219, 219);
+                            text-align: left;
+                            height: 70px;
+                            padding-left: 50px ;
+                            background: rgb(0, 0, 0);
+                            display: block;
+                            font-size: 18px;
+                            transition: background .3s;
+                        }
+                        .changetoburger a.menulink:hover{
+                            background: rgb(32, 32, 32);
+                        }
+                        #boxheader{
+                        /* height: 110px; */
+                        width: 100%;
+                        position: relative;
+                        margin: 0px auto;
+                        /* background: red; */
+                        display: flex;
+                        transition: height .5s;
+                        }
+                    }
+            
