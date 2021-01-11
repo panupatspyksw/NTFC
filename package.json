@@ -4,7 +4,7 @@
   "description": "notification app for cosci",
   "main": "app.js",
   "scripts": {
-    "start": "npm start"
+    "start": "node app"
   },
   "author": "panupat sriphayakswet",
   "license": "ISC",
