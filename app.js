@@ -1606,5 +1606,7 @@ app.get("*",function(req,res){
 
 
 app.listen(port, () => {
-  console.log("Server Connected!!");
+	connection.query("SET time_zone = '+07:00'", function(err, results, field) {
+	}
+   console.log("Server Connected!!");
 })
