@@ -2,9 +2,9 @@
   "name": "ntfc",
   "version": "1.0.0",
   "description": "notification app for cosci",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm start"
   },
   "author": "panupat sriphayakswet",
   "license": "ISC",
