@@ -17,7 +17,7 @@ var defaultimg = "defaultprofile.png";
 
 
 var connection = mysql.createConnection({
-	host     : 'lus-cdbr-east-02.cleardb.com',
+	host     : 'us-cdbr-east-02.cleardb.com',
 	user     : 'bbc5aa79adb978',
 	password : 'bc3f80a0',
 	database : 'heroku_967c364b1d024e2'
