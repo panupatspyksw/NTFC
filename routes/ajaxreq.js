@@ -46,7 +46,7 @@ const transporter = nodemailer.createTransport({
 
 // path router
 router.get("/updatelistnew",(req,res)=>{
-	if(req.session.loggedin){
+	if(req.session.loggedin && req.session.usertype = "2"){
 	var typereq = req.session.user_departmentID;
 	var requestlists = [];
 	var sql = "";
@@ -57,7 +57,10 @@ router.get("/updatelistnew",(req,res)=>{
 		sql = 'select r.req_ID, r.req_title , s.req_status_title, r.req_created,r.req_status_id, r.req_des, CONCAT(m.user_firstname," ",m.user_lastname) as createby from request r,member m, request_status s WHERE m.user_id = r.req_createdby AND r.req_type_id = '+typereq+' AND r.req_status_id = 1 AND r.req_status_id=s.req_status_id order by r.req_created DESC';
 	}
 	connection.query(sql, function(err, results, field) {
-		if (results.length > 0) 
+		if(err){
+			throw err;
+		}
+		if (results) 
 		{	
 			for(var i=0; i<results.length; i++){
 				var createdat = timeforreqlist(results[i].req_created)
@@ -86,37 +89,51 @@ router.get("/updatelistnew",(req,res)=>{
 })
 
 router.get("/updatecountlist",(req,res)=>{
+	if(req.session.loggedin && req.session.user_usertype == 2){
 	updatecountlist(req,res).then( (value) =>{
 		var numonheader = value;
 		res.send(numonheader)
 	})
+	}
+	res.send(false)
 })
 
 // update header number on menu function
 async function updatecountlist(req,res){
 	var listscount;
-
+	if(req.session.loggedin && req.session.user_usertype == 2){
 	var news = await new Promise(function(resolve, reject) {
 		var sql = ""
 		if(req.session.user_departmentID == 4){
 			var sql = "select COUNT(*) as 'count' from request where req_status_id = 3 AND req_createdby != ?";
 			connection.query(sql,[req.session.userID], function(err, results, field) {
+			if(err){
+				throw err
+			}
 			if(results){
+			if(results.length > 0){
 			resolve(results);
 			}
 			else{
 				resolve(0);
+			}
 			}
 			})
 		}
 		else{
 			var sql = "select COUNT(*) as 'count' from request where req_status_id = 1 AND req_type_id = ? AND req_createdby != ?";
 			connection.query(sql,[req.session.user_departmentID , req.session.userID], function(err, results, field) {
+			
+			if(err){
+				throw err;
+			}
 			if(results){
+			if(results.length > 0){
 			resolve(results);
 			}
 			else{
 				resolve(0);
+			}
 			}
 		})
 		}
@@ -124,6 +141,10 @@ async function updatecountlist(req,res){
 	
 
 	return news[0]
+	}
+	else{
+		return []
+	}
 }
 
 function timeforreqlist(reqcreated){
