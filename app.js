@@ -1539,7 +1539,7 @@ async function getcountoflists(req,res){
 	return listscount
 }
 
-app.get("/checktimezone",(req,res){
+app.get("/checktimezone",(req,res)=>{
 	connection.query("select now()", function(err, results, field) {
 	if(results){
 		res.send(results," ",new Date())
