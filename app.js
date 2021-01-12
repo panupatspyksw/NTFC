@@ -1562,7 +1562,7 @@ function timeforreqlist(reqcreated){
 		else{
 		min = reqcreated.getMinutes()
 		}
-		if(reqcreated.getHours > 12){
+		if(reqcreated.getHours() > 12){
 			formatted_date = reqcreated.getHours()-12 + ":" + min + " PM";
 		}
 		else{
