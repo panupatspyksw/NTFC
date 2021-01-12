@@ -46,7 +46,7 @@ const transporter = nodemailer.createTransport({
 
 // path router
 router.get("/updatelistnew",(req,res)=>{
-	if(req.session.loggedin && req.session.usertype = "2"){
+	if(req.session.loggedin && req.session.usertype == 2){
 	var typereq = req.session.user_departmentID;
 	var requestlists = [];
 	var sql = "";
