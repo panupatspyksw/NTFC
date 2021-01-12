@@ -1539,6 +1539,18 @@ async function getcountoflists(req,res){
 	return listscount
 }
 
+app.get("/checktimezone",(req,res){
+	connection.query("select now()", function(err, results, field) {
+	if(results){
+		res.send(results," ",new Date())
+	}
+	else{
+		res.send(new Date())
+	}
+	})
+
+})
+
 function timeforreqlist(reqcreated){
 	var current_datetime = new Date();
 	var formatted_date = "";
@@ -1606,6 +1618,7 @@ app.get("*",function(req,res){
 
 
 app.listen(port, () => {
-
+	connection.query("SET time_zone = '+07:00'",[req_ID], function(err, results, field) {
+	})
    console.log("Server Connected!!");
 })
