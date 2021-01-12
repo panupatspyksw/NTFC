@@ -127,12 +127,13 @@ var user_usertype
             url : "/updatecountlist",
             success: function(numonheader)
             {
-                if ($("#newreq").length && $("#newreq").html() > numonheader.count) 
+                if ($("#newreq").length && $("#newreq").html() != numonheader.count) 
                 {
-                    $("#newreq").html(""+numonheader.count);
-                    if(window.location.pathname != "/newlist"){
+                    if(window.location.pathname != "/newlist" && $("#newreq").length && $("#newreq").html() < numonheader.count){
                     alert("newrequest")
                     }
+                    $("#newreq").html(""+numonheader.count);
+
                 }
             },
             error : function(e) {
