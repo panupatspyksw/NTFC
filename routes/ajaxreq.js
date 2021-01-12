@@ -95,7 +95,9 @@ router.get("/updatecountlist",(req,res)=>{
 		res.send(numonheader)
 	})
 	}
+	else{
 	res.send(false)
+	}
 })
 
 // update header number on menu function
