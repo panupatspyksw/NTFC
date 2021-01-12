@@ -37,6 +37,6 @@ tl.to(".pagetransition",{duration:1 ,opacity:0 , ease: "slow",onComplete:functio
 
 }
 
-window.onresize = function(){ location.reload(); }
+// window.onresize = function(){ location.reload(); }
 
 pagetransition();
