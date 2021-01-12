@@ -30,11 +30,10 @@ tl.to(".endtext",{duration:1 ,opacity:1 , ease: "slow"});
 tl.to(".endtext",{duration:1 ,opacity:0 , ease: "slow"});
 tl.to(".pagetransition",{duration:1 ,opacity:0 , ease: "slow",onComplete:function(){
     // document.querySelector(".pagetransition").style.display = "none";
-    window.location.href = "/"
+    // window.location.href = "/"
 }});
 
     
-
 
 }
 
