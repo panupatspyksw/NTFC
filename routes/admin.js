@@ -18,6 +18,12 @@ var connection = mysql.createConnection({
 	password : 'bc3f80a0',
 	database : 'heroku_967c364b1d024e2'
 });
+// var connection = mysql.createConnection({
+// 	host     : 'localhost',
+// 	user     : 'root',
+// 	password : '',
+// 	database : 'notification'
+// });
 const d = new Date();
 const month = d.getMonth() + 1;
 

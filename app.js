@@ -22,6 +22,12 @@ var connection = mysql.createConnection({
 	password : 'bc3f80a0',
 	database : 'heroku_967c364b1d024e2'
 });
+// var connection = mysql.createConnection({
+// 	host     : 'localhost',
+// 	user     : 'root',
+// 	password : '',
+// 	database : 'notification'
+// });
 app.use(require('./routes/ajaxreq.js')); 
 app.use(require('./routes/admin.js')); 
 
@@ -1579,7 +1585,11 @@ function timeforreqlist(reqcreated){
 	function sendmail(toemail,subject,html){
 	
 		let transporter = nodemailer.createTransport({
+			host: 'smtp.gmail.com',
 			service: 'gmail',
+			port: 587,
+			secure: false,
+			requireTLS: true,
 			auth: {
 			  user: 'ffs.fgdz@gmail.com', // generated ethereal user
 			  pass: 'oneofakind0628184303', // generated ethereal password
@@ -1603,7 +1613,10 @@ function timeforreqlist(reqcreated){
 		// send mail with defined transport object
 		transporter.sendMail(mailOptions, (error, info) => {
 			if (error) {
+				console.log("send email fail");
+				console.log*error
 				return console.log(error);
+
 			}
 			else{
 				console.log("send email successful");

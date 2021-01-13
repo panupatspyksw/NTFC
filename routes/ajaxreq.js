@@ -18,6 +18,13 @@ var connection = mysql.createConnection({
 	database : 'heroku_967c364b1d024e2'
 });
 
+// var connection = mysql.createConnection({
+// 	host     : 'localhost',
+// 	user     : 'root',
+// 	password : '',
+// 	database : 'notification'
+// });
+
 // setup router
 router.use(express.static("public"));
 router.use(express.static("img"));
