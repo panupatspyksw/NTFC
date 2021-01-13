@@ -668,7 +668,7 @@ app.get("/requestBD",function(req,res){
 				})
 			});
 			const problemfortitle = await new Promise(function(resolve, reject) {
-				connection.query('SELECT * FROM problem WHERE req_type_id = 2', function(err, results, field) {
+				connection.query('SELECT * FROM problem WHERE req_type_id = 3', function(err, results, field) {
 					resolve(results)
 				})
 			});
