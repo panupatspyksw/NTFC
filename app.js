@@ -22,7 +22,7 @@ app.use(session({
     store: new MemoryStore({
       checkPeriod: 86400000 // prune expired entries every 24h
     }),
-    resave: false,
+    resave: true,
 	secret: 'keyboard cat',
 	saveUninitialized: true,
 
