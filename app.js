@@ -14,7 +14,19 @@ const { count } = require('console');
 const { request } = require('http');
 const nodemailer = require('nodemailer');
 var defaultimg = "defaultprofile.png";
+var MemoryStore = require('memorystore')(session)
+ 
+app.use(session({
+	secret: 'secret',
+    cookie: { maxAge: 86400000 },
+    store: new MemoryStore({
+      checkPeriod: 86400000 // prune expired entries every 24h
+    }),
+    resave: false,
+	secret: 'keyboard cat',
+	saveUninitialized: true,
 
+}))
 
 var connection
 var db_config = {
@@ -60,12 +72,7 @@ app.use(require('./routes/admin.js'));
 app.use(express.static("public"));
 app.use(express.static("img"));
 app.set("view engine","ejs");
-app.use(session({
-	secret: 'secret',
-	resave: true,
-	saveUninitialized: true,
-	cookie : { secure: false }
-}));
+
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
