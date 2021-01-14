@@ -60,6 +60,18 @@ var db_config = {
   
   handleDisconnect();
 
+  const pool = mysql.createPool({
+	host     : 'us-cdbr-east-02.cleardb.com',
+	user     : 'bbc5aa79adb978',
+	password : 'bc3f80a0',
+	database : 'heroku_967c364b1d024e2'
+  });
+  
+  // ... later
+  setInterval(function () {
+	pool.query('select 1 + 1', (err, rows) => { /* */ });
+}, 5000);
+
 // var connection = mysql.createConnection({
 // 	host     : 'localhost',
 // 	user     : 'root',
