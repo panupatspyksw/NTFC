@@ -1615,7 +1615,7 @@ function convertTZ(date, tzString) {
 function timeforreqlist(reqcreated){
 	console.log("date from mysql = "+reqcreated)
 	var current_datetime = new Date();
-	current_datetime = convertTZ(date, "Asia/Jakarta")
+	current_datetime = convertTZ(current_datetime, "Asia/Jakarta")
 	console.log("date from newdate = "+current_datetime)
 
 	var formatted_date = "";
