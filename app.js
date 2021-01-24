@@ -38,7 +38,10 @@ var db_config = {
   
   
   function handleDisconnect() {
-	connection = mysql.createConnection(db_config); // Recreate the connection, since
+	  
+	connection = mysql.createConnection(db_config);
+	connection.query("SET time_zone = '+07:00'", function(err, results, field) {
+	}) // Recreate the connection, since
 													// the old one cannot be reused.
   
 	connection.connect(function(err) {              // The server is either down
