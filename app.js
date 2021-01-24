@@ -1606,9 +1606,16 @@ app.get("/checktimezone",(req,res)=>{
 
 })
 
+function convertTZ(date, tzString) {
+    return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));   
+}
+
+
+
 function timeforreqlist(reqcreated){
 	console.log("date from mysql = "+reqcreated)
 	var current_datetime = new Date();
+	current_datetime = convertTZ(date, "Asia/Jakarta")
 	console.log("date from newdate = "+current_datetime)
 
 	var formatted_date = "";
