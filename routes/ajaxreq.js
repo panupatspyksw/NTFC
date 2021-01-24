@@ -52,6 +52,7 @@ var db_config = {
   
   // ... later
   setInterval(function () {
+	connection.query("SET time_zone = '+07:00'", function(err, results, field) {})
 	pool.query('select 1 + 1', (err, rows) => { /* */ });
 }, 5000);
 
@@ -422,8 +423,18 @@ function sendmail(subject,toemail,subject,html){
 
 }
 
+function convertTZ(date, tzString) {
+    return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));   
+}
+
+
+
 function timeforreqlist(reqcreated){
+	console.log("date from mysql = "+reqcreated)
 	var current_datetime = new Date();
+	current_datetime = convertTZ(current_datetime, "Asia/Jakarta")
+	console.log("date from newdate = "+current_datetime)
+
 	var formatted_date = "";
 	if(reqcreated.getDate() == current_datetime.getDate() && reqcreated.getMonth() == current_datetime.getMonth() && reqcreated.getFullYear() == current_datetime.getFullYear()){
 		var min = "";
@@ -433,18 +444,18 @@ function timeforreqlist(reqcreated){
 		else{
 		min = reqcreated.getMinutes()
 		}
-		if(reqcreated.getHours > 12){
+		if(reqcreated.getHours() > 12){
 			formatted_date = reqcreated.getHours()-12 + ":" + min + " PM";
 		}
 		else{
 			formatted_date = reqcreated.getHours() + ":" + min + " AM";
 		}
-	
 	}
 	else{
 			formatted_date = reqcreated.getDate() + "/" + (reqcreated.getMonth() + 1) + "/" + reqcreated.getFullYear()
 	}
 	return formatted_date;
 	}
+
 
 module.exports = router;
