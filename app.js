@@ -1607,6 +1607,7 @@ app.get("/checktimezone",(req,res)=>{
 })
 
 function timeforreqlist(reqcreated){
+	console.log("date from mysql = "+reqcreated)
 	var current_datetime = new Date();
 	var formatted_date = "";
 	if(reqcreated.getDate() == current_datetime.getDate() && reqcreated.getMonth() == current_datetime.getMonth() && reqcreated.getFullYear() == current_datetime.getFullYear()){
