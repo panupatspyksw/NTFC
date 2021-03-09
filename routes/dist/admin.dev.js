@@ -82,6 +82,7 @@ router.get("/members", function (req, res) {
   }
 });
 router.post("/dashboard/employee", function (req, res) {
+  console.log("generate app");
   var message = false;
   var countstatus = [];
 
@@ -307,6 +308,7 @@ router.post("/dashboard/employee", function (req, res) {
     var connection = mysql.createConnection(db_config);
     requesttodatabase().then(function () {
       connection.end();
+      res.end();
     });
   } else {
     res.redirect("/");

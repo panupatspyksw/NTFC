@@ -65,6 +65,7 @@ router.get("/members",(req,res)=>{
 })
 
 router.post("/dashboard/employee",(req,res)=>{
+	console.log("generate app")
 	var message = false;
 	var countstatus = [];
 	if(req.body.check && req.session.loggedin && req.body.employeeID && (req.session.user_usertype == "3"|| req.session.user_usertype == "4" )){
@@ -262,6 +263,7 @@ router.post("/dashboard/employee",(req,res)=>{
 		}
 		requesttodatabase().then(()=>{
 			connection.end()
+			res.end()
 		})
 	}
 	else{
