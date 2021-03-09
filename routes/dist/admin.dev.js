@@ -145,7 +145,9 @@ router.post("/dashboard/employee", function (req, res) {
                     } else {
                       resolve(0);
                     }
-                  } else if (err) {}
+                  } else if (err) {
+                    console.log(err);
+                  }
                 });
               }));
 
@@ -172,7 +174,9 @@ router.post("/dashboard/employee", function (req, res) {
                         all2 = results;
                         var sql = "select rp.req_ID,rp.product_ID as product_ID,rp.product_name,rp.product_location_id,rp.product_des from request_it_product rp,request r where (r.req_getby = '" + employeeID + "' OR r.req_repairby = '" + employeeID + "') and r.req_ID = rp.req_ID and (r.req_created BETWEEN '" + startdate + " 00:00:00' AND '" + enddate + " 23:59:59') union all select rp.req_ID,null as product_ID,rp.product_name,rp.product_location_id,rp.product_des from request_md_product rp,request r where (r.req_getby = '" + employeeID + "' OR r.req_repairby = '" + employeeID + "') and r.req_ID = rp.req_ID and (r.req_created BETWEEN '" + startdate + " 00:00:00' AND '" + enddate + " 23:59:59') union all select rp.req_ID,null as product_ID,rp.product_name,rp.product_location_id,rp.product_des from request_bd_product rp,request r where (r.req_getby = '" + employeeID + "' OR r.req_repairby = '" + employeeID + "') and r.req_ID = rp.req_ID and (r.req_created BETWEEN '" + startdate + " 00:00:00' AND '" + enddate + " 23:59:59')";
                         connection.query(sql, function (err, results, field) {
-                          if (err) throw err;else if (results.length > 0) {
+                          if (err) {
+                            console.log(err);
+                          } else if (results.length > 0) {
                             all3 = results;
                             var listsdetail = [];
 
