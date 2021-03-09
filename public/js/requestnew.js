@@ -1,8 +1,18 @@
+
+var listcount = 1
+
 function deleterow(s){
-    s.parentNode.remove()
+    if(listcount > 1){
+        listcount -=1
+        s.parentNode.remove()
+    }
+    else{
+        alert("ต้องมีอย่างน้อย 1 รายการที่จะแจ้ง")
+    }
 }
 
 function cloneelement(copy){
+
 copy.style.display = "inline-block"
 var paste = copy.cloneNode(true);
 copy.style.display = "none"
@@ -13,7 +23,13 @@ cloneelement(document.querySelector(".listorder"))
 var addbtn = document.getElementById("newbtn")
 addbtn.onclick = function(){
   var listforadd = cloneelement(document.querySelector(".listorder"))
-  document.querySelector(".lists").append(listforadd)
+  if(listcount < 10){
+    listcount+=1
+    document.querySelector(".lists").append(listforadd)
+  }
+  else{
+      alert("แจ้งได้มากที่สุด 10 รายการเท่านั้น")
+  }
 }
 
 var submit = document.getElementById("submit");
@@ -23,16 +39,13 @@ var form = document.querySelector("form")
 form.reset();
 })
 
-form.onsubmit = function(){
-  list.remove()
-}
+
 
 if ( window.history.replaceState ) {
 window.history.replaceState( null, null, window.location.href );
 }
 
 var fileinput = document.getElementById("imageinput");
-console.log(fileinput.fi)
 var preview = document.getElementById("previewimg");
 var previewimgcopy = document.querySelector("#listimage");
 fileinput.addEventListener("change",function(e)

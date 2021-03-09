@@ -12,7 +12,7 @@ height: 50px;
 width: 50px;
 border-radius: 100px;
 background: black;
-
+opacity: 0;
 }
 .centerxy{
 width: 100%;
@@ -62,8 +62,19 @@ height: 100vh;
 overflow: hidden;
 display: block;
 }
-
+@media only screen and (max-width: 900px) {
+    .endtext{
+font-family: 'Sacramento', cursive;
+font-size: 40px;
+opacity: 0;
+}
+}
 @media only screen and (max-width: 480px) {
+    .endtext{
+font-family: 'Sacramento', cursive;
+font-size: 25px;
+opacity: 0;
+}
 .circle{
 display: block;
 margin: 3% auto;

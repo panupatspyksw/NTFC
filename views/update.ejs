@@ -28,9 +28,13 @@ var title,type,des,requester,receiver,products,images,history,statuss
         <div class="datalist">
             <legend class="en headlist">REQUESTER</legend>
             <div class="data userinfo">
-                <span class="name th"><%= requester.user_firstname + " " + requester.user_lastname %></span> <br>
-                <span class="email th">EMAIL : <%= requester.user_email %></span><br>
-                <span class="phone th">PHONE : <%= requester.user_phone %></span>
+                <% if(requester.user_firstname){ %>
+                    <span class="name th"><%= requester.user_firstname + " " + requester.user_lastname %></span> <br>
+                    <span class="email th">EMAIL : <%= requester.user_email %></span><br>
+                    <span class="phone th">PHONE : <%= requester.user_phone %></span>
+                    <%}else{%>
+                    <span class="name th"><%= requester %></span> <br>
+                <%}%>
             </div>
         </div>  
         <div class="datalist">

@@ -1,0 +1,128 @@
+<%- include("partials/header") %>
+
+<style>
+  .selecttimesection{
+    background: white;
+    width: 90%;
+    display: block;
+    margin: 30px auto;
+    text-align: center;
+    border-radius: 20px;
+    padding: 3%;
+  }
+  body{
+    overflow-x: hidden;
+  }
+ 
+  .content{
+    text-align: center;
+    padding: 20px;
+  }
+  .inputtime{
+    margin-top: 10px;
+    display: inline-block;
+    padding: 5px;
+    font-size: 14px;
+  }
+  .title{
+    width: 100%;
+    display: block;
+    position: absolute;
+    z-index: 101;
+    top: 30px;
+    left: 50%;
+    text-align: center;
+    line-height: 50px;
+    font-size: 20px;
+    transform: translate(-50%,-10%);
+  }
+  .chartsection{
+    padding-top: 50px;
+    display: block;
+    background: white;
+    position: relative;
+    border-radius: 20px;
+    width: 90%;
+    height: 600px auto;
+    margin: 0 auto;
+    margin-top: 40px;
+    overflow: hidden;
+  }
+  .chart{
+    z-index: 100;
+    position: relative;
+    text-align: center;
+    background: white;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  a{
+      text-decoration: none;
+      color: black;
+  }
+  @media only screen and (max-width: 800px) {
+  .inputtime{
+    margin-top: 10px;
+    padding: 0px;
+    display: block;
+  }
+  .selecttimesection h1{
+    font-size: 20px;
+  }
+  .selecttimesection h4{
+    font-size: 14px;
+  }
+}
+</style>
+
+<%
+var title, showdashboard
+var chart = [{"title":"จำนวนรายการแจ้งซ่อมแบ่งตามสถานะการดำเนินการ (ทั้งหมด 50 รายการ)",
+"data":[
+      ['Task', 'Hours per Day'],
+      ['Work',     11],
+      ['Eat',      2],
+      ['Commute',  2],
+      ['Watch TV', 2],
+      ['Sleep',    7]
+      ]},
+{"title":"อันดับรายการที่ได้รับการแจ้งซ่อมเข้ามาจากมากไปน้อย",
+"data":[
+['Element', 'Density', { role: 'annotation' } ],
+['Copper', 8.94, 'Just under nine'],
+['Silver', 10.49, 'About ten and a half'],
+['Gold', 19.30, 'Over 19'],
+['Platinum', 21.45, '21.45'],
+['Platinum', 21.45, '21.45'],
+['Gold', 19.30, 'Over 19'],
+['Platinum', 21.45, '21.45'],
+['Gold', 19.30, 'Over 19'],
+['Platinum', 21.45, '21.45'],
+['Platinum', 21.45, '21.45'],
+]}]
+
+%>
+<a href="/dashboard/IT">
+    <div class="selecttimesection">
+        <h1 class="th">สรุปผลการดำเนินการแจ้งซ่อมของแผนกไอที<%=title%></h1>
+    </div>
+</a>
+<a href="/dashboard/MD">
+    <div class="selecttimesection">
+        <h1 class="th">สรุปผลการดำเนินการแจ้งซ่อมของแผนกสื่อ<%=title%></h1>
+    </div>
+</a>
+<a href="/dashboard/BD">
+    <div class="selecttimesection">
+        <h1 class="th">สรุปผลการดำเนินการแจ้งซ่อมของแผนกอาคาร<%=title%></h1>
+    </div>
+</a>
+<a href="/dashboard/PS">
+    <div class="selecttimesection">
+        <h1 class="th">สรุปผลการดำเนินการแจ้งซ่อมของแผนกพัสดุ<%=title%></h1>
+    </div>
+</a>
+
+
+<%- include("partials/footer") %>

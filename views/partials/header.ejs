@@ -6,7 +6,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>Document</title>
+    <title>COSCI เว็บแจ้งซ่อมสาธารณูปโภค และอาคารสถานที่</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
@@ -18,8 +18,7 @@
 
 </head>
 <% 
-var user_usertype 
-
+var user_usertype, header, backbutton
 %>
 <body>
     <div id="header">
@@ -29,17 +28,21 @@ var user_usertype
             </div>
             <div id="Hright">
                 <div id="menubox">
+                <%if(header != "student"){%>
                 <span class="changetoburger">
-                <a class="menulink" href="/request"><div class="link">REQUEST</div></a>
-                <a class="menulink" href="/requestlist"><div class="link">YOUR REQUEST<span class="pointred"><%= countstatus[0] | 0 %></span></div></a>
-                <%if(user_usertype == 2){%>
-                <a class="menulink" href="/receivelist"><div class="link">RECEIVED<span class="pointred"><%= countstatus[1] | 0 %></span></div></a>
-                <a class="menulink" href="/newlist"><div class="link">NEW REQUEST<span class="pointred" id="newreq"><%= countstatus[2] | 0 %></span></div></a>
-                <%}%>
-                <%if(user_usertype == 3){%>
-                    <a class="menulink" href="/dashboard"><div class="link">DASHBOARD</div></a>
-                <%}%>
-                
+                    <a class="menulink" href="/request"><div class="link">REQUEST</div></a>
+                    <a class="menulink" href="/requestlist"><div class="link">YOUR REQUEST<span class="pointred"><%= countstatus[0] | 0 %></span></div></a>
+                    <%if(user_usertype == 2){%>
+                    <a class="menulink" href="/receivelist"><div class="link">RECEIVED<span class="pointred"><%= countstatus[1] | 0 %></span></div></a>
+                    <a class="menulink" href="/newlist"><div class="link">NEW REQUEST<span class="pointred" id="newreq"><%= countstatus[2] | 0 %></span></div></a>
+                    <%}%>
+                    <%if(user_usertype == 3 || user_usertype == 4){%>
+                        <a class="menulink" href="/dashboard"><div class="link">DASHBOARD</div></a>
+                    <%}%>
+                    <!-- <%if(user_usertype == 4){%>
+                        <a class="menulink" href="/members"><div class="link">MEMBERS</div></a>
+                    <%}%> -->
+                    
                 </span>
                 <%
                 var path
@@ -54,12 +57,18 @@ var user_usertype
                 <span class="usermenu">
                     <div class="usermenubox">
                     <!-- <span id="arrowmenu" class="fas fa-caret-up fa-3x"></span> -->
-                    <a><span style="font-size: 12px;">LOGIN AS</span><br><%= user_username %></a>
+                    <a><span style="font-size: 12px;">LOGIN AS</span><br><%= user_firstname %></a>
                     <a href="/profile">Profile</a>
                     <a href="/logout">Sign out</a>
                     </div>
                 </span>
+                <%}else{%>
+                    <span class="changetoburger">
+                        <a class="menulink" href="/<%=backbutton%>"><div class="link">BACK</div></a>
+                    </span>
+                <%}%>
                 </div>
+
                 <div class="burgerbox" id="burgerbtn" onclick="burgeraction(document.getElementById('burgerinside'))">
                     <div class="burger" id="burgerinside" onclick="">
                         <div class="bar1"></div>
@@ -130,14 +139,14 @@ var user_usertype
                 if ($("#newreq").length && $("#newreq").html() != numonheader.count) 
                 {
                     if(window.location.pathname != "/newlist" && $("#newreq").length && $("#newreq").html() < numonheader.count){
-                    alert("newrequest")
+                    alert("รายการแจ้งซ่อมเข้ามาใหม่")
                     }
                     $("#newreq").html(""+numonheader.count);
 
                 }
             },
             error : function(e) {
-                window.location = window.location
+                window.location.replace("/login");
             }
         });  
 

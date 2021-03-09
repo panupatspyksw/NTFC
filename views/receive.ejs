@@ -1,7 +1,7 @@
 <%- include("partials/header") %>
 <%
 var title,type,des,requester,receiver,products,images,history
-console.log("receiver "+products)
+console.log(requester)
 %>
 <style>
     .statuschange{
@@ -27,9 +27,13 @@ console.log("receiver "+products)
         <div class="datalist">
             <legend class="en headlist">REQUESTER</legend>
             <div class="data userinfo">
-                <span class="name th"><%= requester.user_firstname + " " + requester.user_lastname %></span> <br>
-                <span class="email th">EMAIL : <%= requester.user_email %></span><br>
-                <span class="phone th">PHONE : <%= requester.user_phone %></span>
+                <% if(requester.user_firstname){ %>
+                    <span class="name th"><%= requester.user_firstname + " " + requester.user_lastname %></span> <br>
+                    <span class="email th">EMAIL : <%= requester.user_email %></span><br>
+                    <span class="phone th">PHONE : <%= requester.user_phone %></span>
+                    <%}else{%>
+                    <span class="name th"><%= requester %></span> <br>
+                <%}%>
             </div>
         </div>  
         <div class="datalist">
@@ -98,7 +102,6 @@ console.log("receiver "+products)
                         for(var i=0; i < history.length; i++){
                             var current_datetime = history[i].history_created;
                             let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate() + " " + current_datetime.getHours() + ":" + current_datetime.getMinutes() + ":" + current_datetime.getSeconds() 
-                            console.log(formatted_date)
                             %>
 
                     <div class="container right">

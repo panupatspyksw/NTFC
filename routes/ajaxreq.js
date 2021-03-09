@@ -11,50 +11,55 @@ const { count, Console } = require('console');
 const nodemailer = require('nodemailer');
 const { send } = require('process');
 var MemoryStore = require('memorystore')(session)
-var connection
+// var db_config = {
+// 	host     : 'us-cdbr-east-02.cleardb.com',
+// 	user     : 'bbc5aa79adb978',
+// 	password : 'bc3f80a0',
+// 	database : 'heroku_967c364b1d024e2'
+//   };
 var db_config = {
-	host     : 'us-cdbr-east-02.cleardb.com',
-	user     : 'bbc5aa79adb978',
-	password : 'bc3f80a0',
-	database : 'heroku_967c364b1d024e2'
-  };
-  
-  
-  function handleDisconnect() {
-	connection = mysql.createConnection(db_config); // Recreate the connection, since
-													// the old one cannot be reused.
-  
-	connection.connect(function(err) {              // The server is either down
-	  if(err) {                                     // or restarting (takes a while sometimes).
-		console.log('error when connecting to db:', err);
-		setTimeout(handleDisconnect, 2000); // We introduce a delay before attempting to reconnect,
-	  }                                     // to avoid a hot loop, and to allow our node script to
-	});                                     // process asynchronous requests in the meantime.
-											// If you're also serving http, display a 503 error.
-	connection.on('error', function(err) {
-	  console.log('db error', err);
-	  if(err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
-		handleDisconnect();                         // lost due to either server restart, or a
-	  } else {                                      // connnection idle timeout (the wait_timeout
-		throw err;                                  // server variable configures this)
-	  }
-	});
-  }
-  
-  handleDisconnect();
+	host     : 'localhost',
+	user     : 'root',
+	password : '',
+	database : 'notification'
+};
 
-  const pool = mysql.createPool({
-	host     : 'us-cdbr-east-02.cleardb.com',
-	user     : 'bbc5aa79adb978',
-	password : 'bc3f80a0',
-	database : 'heroku_967c364b1d024e2'
-  });
   
-  // ... later
-  setInterval(function () {
-	connection.query("SET time_zone = '+07:00'", function(err, results, field) {})
-	pool.query('select 1 + 1', (err, rows) => { /* */ });
-}, 5000);
+//   function handleDisconnect() {
+// 	connection = mysql.createConnection(db_config); // Recreate the connection, since
+// 													// the old one cannot be reused.
+  
+// 	connection.connect(function(err) {              // The server is either down
+// 	  if(err) {                                     // or restarting (takes a while sometimes).
+// 		console.log('error when connecting to db:', err);
+// 		setTimeout(handleDisconnect, 2000); // We introduce a delay before attempting to reconnect,
+// 	  }                                     // to avoid a hot loop, and to allow our node script to
+// 	});                                     // process asynchronous requests in the meantime.
+// 											// If you're also serving http, display a 503 error.
+// 	connection.on('error', function(err) {
+// 	  console.log('db error', err);
+// 	  if(err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
+// 		handleDisconnect();                         // lost due to either server restart, or a
+// 	  } else {                                      // connnection idle timeout (the wait_timeout
+// 		throw err;                                  // server variable configures this)
+// 	  }
+// 	});
+//   }
+  
+//   handleDisconnect();
+
+//   const pool = mysql.createPool({
+// 	host     : 'us-cdbr-east-02.cleardb.com',
+// 	user     : 'bbc5aa79adb978',
+// 	password : 'bc3f80a0',
+// 	database : 'heroku_967c364b1d024e2'
+//   });
+  
+//   // ... later
+//   setInterval(function () {
+// 	connection.query("SET time_zone = '+07:00'", function(err, results, field) {})
+// 	pool.query('select 1 + 1', (err, rows) => { /* */ });
+// }, 5000);
 
 
 // var connection = mysql.createConnection({
@@ -102,11 +107,13 @@ router.get("/updatelistnew",(req,res)=>{
 	var typereq = req.session.user_departmentID;
 	var requestlists = [];
 	var sql = "";
+	var connection = mysql.createConnection(db_config)
+
 	if(req.session.user_departmentID == 4){
-		sql = 'select r.req_ID, r.req_title , s.req_status_title, r.req_created,r.req_status_id, r.req_des, CONCAT(m.user_firstname," ",m.user_lastname) as createby from request r,member m, request_status s WHERE m.user_id = r.req_createdby AND r.req_status_id = 3 AND r.req_status_id=s.req_status_id order by r.req_created DESC'
+		sql = 'select r.req_ID, r.req_title , s.req_status_title, r.req_created,r.req_status_id, r.req_des from request r, request_status s WHERE r.req_status_id = 3 AND r.req_status_id=s.req_status_id order by r.req_created DESC'
 	}
 	else{
-		sql = 'select r.req_ID, r.req_title , s.req_status_title, r.req_created,r.req_status_id, r.req_des, CONCAT(m.user_firstname," ",m.user_lastname) as createby from request r,member m, request_status s WHERE m.user_id = r.req_createdby AND r.req_type_id = '+typereq+' AND r.req_status_id = 1 AND r.req_status_id=s.req_status_id order by r.req_created DESC';
+		sql = 'select r.req_ID, r.req_title , s.req_status_title, r.req_created,r.req_status_id, r.req_des from request r, request_status s WHERE r.req_type_id = '+typereq+' AND r.req_status_id = 1 AND r.req_status_id=s.req_status_id order by r.req_created DESC';
 	}
 	connection.query(sql, function(err, results, field) {
 		if(err){
@@ -122,7 +129,6 @@ router.get("/updatelistnew",(req,res)=>{
 							title: results[i].req_title,
 							status: results[i].req_status_title,
 							createdat : createdat,
-							createdby : results[i].createby,
 							statusid : results[i].req_status_id,
 							des : results[i].req_des
 						}
@@ -132,6 +138,7 @@ router.get("/updatelistnew",(req,res)=>{
 		}
 		var listupdate = requestlists;
     	res.send(listupdate);
+	connection.end()
 	})
 	}
 	else{
@@ -154,6 +161,8 @@ router.get("/updatecountlist",(req,res)=>{
 
 // update header number on menu function
 async function updatecountlist(req,res){
+	var connection = mysql.createConnection(db_config)
+
 	var listscount;
 	if(req.session.loggedin && req.session.user_usertype == 2){
 	var news = await new Promise(function(resolve, reject) {
@@ -193,7 +202,7 @@ async function updatecountlist(req,res){
 		}
 	})
 	
-
+	connection.end()
 	return news[0]
 	}
 	else{
@@ -272,6 +281,8 @@ router.get("/test",(req,res)=>{
 router.get("/refreshsession",(req,res)=>{
 	if(req.session.userID && req.session.loggedin)
 	{
+		var connection = mysql.createConnection(db_config)
+
 			var sql = "select * from member where user_id = ?";
 			connection.query(sql,[req.session.userID], function(err, results, field) 
 			{
@@ -283,6 +294,7 @@ router.get("/refreshsession",(req,res)=>{
 				req.session.lname = results[0].user_lastname;
 				req.session.profileimage = results[0].profileimg
 				res.send("success")
+				connection.end()
 			})
 	}
 	else{
@@ -291,6 +303,8 @@ router.get("/refreshsession",(req,res)=>{
 })
 
 router.get("/searchreceivelist/:searchtext",(req,res)=>{
+	var connection = mysql.createConnection(db_config)
+
 	if(req.session.userID && req.session.loggedin){
 	var receivelists = []
 	var sql = "";
@@ -336,6 +350,7 @@ router.get("/searchreceivelist/:searchtext",(req,res)=>{
 		else{
 			res.send(receivelists)
 		}
+		connection.end()
 	})
 	}
 	else{
@@ -345,6 +360,7 @@ router.get("/searchreceivelist/:searchtext",(req,res)=>{
 })
 
 router.get("/searchrequestlist/:searchtext",(req,res)=>{
+	var connection = mysql.createConnection(db_config)
 	if(req.session.userID && req.session.loggedin){
 	var requestlists = []
 	var sql = "";
@@ -379,6 +395,8 @@ router.get("/searchrequestlist/:searchtext",(req,res)=>{
 		else{
 			res.send(requestlists)
 		}
+		connection.end()
+
 	})
 	}
 	else{
@@ -430,10 +448,8 @@ function convertTZ(date, tzString) {
 
 
 function timeforreqlist(reqcreated){
-	console.log("date from mysql = "+reqcreated)
 	var current_datetime = new Date();
 	current_datetime = convertTZ(current_datetime, "Asia/Jakarta")
-	console.log("date from newdate = "+current_datetime)
 
 	var formatted_date = "";
 	if(reqcreated.getDate() == current_datetime.getDate() && reqcreated.getMonth() == current_datetime.getMonth() && reqcreated.getFullYear() == current_datetime.getFullYear()){

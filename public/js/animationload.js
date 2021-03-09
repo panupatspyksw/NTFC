@@ -3,9 +3,10 @@ var tl;
 
 function pagetransition(){
 tl = gsap.timeline();
-tl.from(".circle",{duration:0.30, opacity:0 ,stagger:0.30});
+tl.to(".circle",{duration:.6, opacity:1 ,stagger:0.20});
 
-tl.to(".circle",{duration:0.30, opacity:0 ,stagger:0.30});
+tl.to(".circle",{duration:.5, opacity:0 ,stagger:0.20});
+
 
 
 var w = document.querySelector(".white");
@@ -26,8 +27,8 @@ var to4y = w.offsetTop-lb.offsetTop;
 
 
 
-tl.to(".endtext",{duration:1 ,opacity:1 , ease: "slow"});
-tl.to(".endtext",{duration:1 ,opacity:0 , ease: "slow"});
+tl.to(".endtext",{duration:.5 ,opacity:1 , ease: "slow"});
+tl.to(".endtext",{duration:.5 ,opacity:0 , ease: "slow"});
 tl.to(".pagetransition",{duration:1 ,opacity:0 , ease: "slow",onComplete:function(){
     document.querySelector(".pagetransition").style.display = "none";
     // window.location.href = "/"

@@ -1,228 +1,301 @@
 <%- include("partials/header") %>
 
 <style>
-
-  .chart{
-    display: inline-block;
-    width: 45%;
-    height: 400px;
-    padding: 20px 0;
-    background-color: white;
-    margin: 0% auto;
+  .selecttimesection{
+    background: white;
+    width: 90%;
+    display: block;
+    margin: 30px auto;
+    text-align: center;
+    border-radius: 20px;
+    padding: 3%;
   }
+  body{
+    overflow-x: hidden;
+  }
+ 
   .content{
     text-align: center;
     padding: 20px;
   }
-</style>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
-
-  google.charts.load('current', {'packages':['corechart']});
-  google.load("visualization", "1", {packages:["corechart"]});
-      
+  .inputtime{
+    margin-top: 10px;
+    display: inline-block;
+    padding: 5px;
+    font-size: 14px;
+  }
+  .title{
+    width: 100%;
+    display: block;
+    position: absolute;
+    z-index: 101;
+    top: 30px;
+    left: 50%;
+    text-align: center;
+    line-height: 50px;
+    font-size: 20px;
+    transform: translate(-50%,-10%);
+  }
+  .chartsection{
+    padding-top: 50px;
+    display: block;
+    background: white;
+    position: relative;
+    border-radius: 20px;
+    width: 90%;
+    height: 600px auto;
+    margin: 0 auto;
+    margin-top: 40px;
+    overflow: hidden;
+  }
+  .chart{
+    z-index: 100;
+    position: relative;
+    text-align: center;
+    background: white;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
   
-  $( document ).ready(function() {
-    function timeConvert(n) {
-    var num = n;
-    var hours = (num / 60);
-    var rhours = Math.floor(hours);
-    var minutes = (hours - rhours) * 60;
-    var rminutes = Math.round(minutes);
-    return "" + rhours + " hour(s) and " + rminutes + " minute(s).";
-    }
+  @media only screen and (max-width: 800px) {
+  .inputtime{
+    margin-top: 10px;
+    padding: 0px;
+    display: block;
+  }
+  .selecttimesection h1{
+    font-size: 20px;
+  }
+  .selecttimesection h4{
+    font-size: 14px;
+  }
+}
+</style>
+
+<%
+var title, showdashboard, listemployee 
+var chart = [{"title":"จำนวนรายการแจ้งซ่อมแบ่งตามสถานะการดำเนินการ (ทั้งหมด 50 รายการ)",
+"data":[
+      ['Task', 'Hours per Day'],
+      ['Work',     11],
+      ['Eat',      2],
+      ['Commute',  2],
+      ['Watch TV', 2],
+      ['Sleep',    7]
+      ]},
+{"title":"อันดับรายการที่ได้รับการแจ้งซ่อมเข้ามาจากมากไปน้อย",
+"data":[
+['Element', 'Density', { role: 'annotation' } ],
+['Copper', 8.94, 'Just under nine'],
+['Silver', 10.49, 'About ten and a half'],
+['Gold', 19.30, 'Over 19'],
+['Platinum', 21.45, '21.45'],
+['Platinum', 21.45, '21.45'],
+['Gold', 19.30, 'Over 19'],
+['Platinum', 21.45, '21.45'],
+['Gold', 19.30, 'Over 19'],
+['Platinum', 21.45, '21.45'],
+['Platinum', 21.45, '21.45'],
+]}]
+
+%>
+<div class="selecttimesection">
+<form action="" method="POST" onsubmit="return checkdaterange()">
+  <h1 class="th">สรุปผลการดำเนินการแจ้งซ่อมของแผนก<%=title%></h1>
+  <h4 class="th">กรุณาระบุช่วงเวลาที่ต้องการจะสรุปผลการดำเนินการ</h4>
+  <div class="th ">
+  <div class="inputtime">จาก <input type="date" name="start" id="start" required ></div>
+  <div class="inputtime">ถึง <input type="date" name="end" id="end" required >
+</div>
+</div>
+<br>
+<input type="submit" name="check">
+</form>
+</div>
+
+<div class="selecttimesection">
+  <form action="/dashboard/employee" method="POST" onsubmit="return checkdaterange2()">
+    <h1 class="th">สรุปผลการทำงานของเจ้าหน้าที่รายบุคคลของแผนก<%=title%></h1>
+    <h4 class="th">กรุณาเลือกรายชื่อเจ้าหน้าที่และระบุช่วงเวลาที่ต้องการจะสรุปผลการดำเนินการ</h4>
+    <div class="th ">
+      <div class="inputtime">
+        <select name="employeeID" id="cars">
+          <%if(listemployee.length > 0){%>
+          <option disabled selected value> -- เลือกรายชื่อเจ้าหน้าที่ -- </option>
+          <%for(var i=0; i<listemployee.length; i++){%>
+          <option value="<%=listemployee[i].user_id%>">คุณ<%=listemployee[i].user_firstname%> <%=listemployee[i].user_lastname%></option>
+          <%}}else{%>
+          <option disabled selected value> -- ไม่พบรายชื่อเจ้าหน้าที่ในแผนก -- </option>
+          <%}%>
+        </select>
+      </div>
+      <br>
+    <div class="inputtime">จาก <input type="date" name="start" id="start2" required ></div>
+    <div class="inputtime">ถึง <input type="date" name="end" id="end2" required >
+  </div>
+  </div>
+  <br>
+  <%if(listemployee.length > 0){%>
+  <input type="submit" name="check">
+  <%}else{%>
+  <input type="submit" name="check" disabled style="opacity: 0.8;">
+  <%}%>
+  
+  </form>
+  </div>
 
 
-    
-    function dashboard1(x){
-      const date = [["Element", "Amount" ]]
-      var sumamount = 0;
-      if(x.length > 0){
-      x.forEach(element => {
-        date.push([String(element.day),element.amount])
-        sumamount += element.amount
-      });
-      }
-      else{
-        date.push(["0",0])
-      }
-      google.charts.setOnLoadCallback(drawVisualization);
-            function drawVisualization() 
-            {
-            // Some raw data (not necessarily accurate)
-            var data = google.visualization.arrayToDataTable(date);
-
-            var options = {
-              title : 'รายการแจ้งที่ได้รับในแต่ละวันที่สำเร็จลุล่วงในเดือนนี้ (ทั้งหมด '+sumamount+' รายการ)',
-              vAxis: {title: 'จำนวนรายการแจ้ง'},
-              hAxis: {title: 'วันที่'},
-              seriesType: 'bars',
-              legend: { position: "none" },
-              'chartArea': {'width': '70%', 'height': '80%'},
-              sliceVisibilityThreshold :0
-
-            //   series: {5: {type: 'line'}}
-            };
-            var view = new google.visualization.DataView(data);
-            view.setColumns([0, 1, {
-            type: 'string',
-            role: 'annotation',
-            sourceColumn: 1,
-            calc: 'stringify'
-            }]);
-            var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
-            chart.draw(view, options);
-            }
-
-    }
-    function dashboard2(x){
-      google.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['รายการที่ยกเลิก',     x.CANCEL],
-          ['รายการใหม่',      x.NEWREQ],
-          ['รายการที่รอรับเรื่อง',  x.RECIEVE],
-          ['รายการที่ส่งซ่อมพัสดุ', x.PASSADU],
-          ['รายการที่ไม่ผ่านอนุมัติซ่อม',  x.DISAPPROVE],
-          ['รายการที่สำเร็จ',    x.SUCCESS]
-        ]);
-
-        var options = {
-          title: 'จำนวนรายการแจ้งจำแนกตามสถานะการดำเนินการภายในเดือนนี้',
-          pieSliceText: 'value-and-percentage',
-          'chartArea': {'width': '70%', 'height': '80%'},
-          sliceVisibilityThreshold :0
-
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div2'));
-        chart.draw(data, options);
-      }
-
-    }
-    function dashboard3(x){
-      const amount = [["Element", "Amount" , { role: 'annotation' }]]
-      const time = [["Element", "Time" , { role: 'annotation' }]]
-      x.forEach(element => {
-        var y = -100;
-        var positive = 0;
-        if (element.timeused >= 0){
-          positive = element.timeused
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        var startdate = document.getElementById("start")
+        var enddate = document.getElementById("end")
+        var startdate2 = document.getElementById("start2")
+        var enddate2 = document.getElementById("end2")
+        // startdate.max = new Date().toISOString().split("T")[0];
+        // enddate.max = new Date().toISOString().split("T")[0];
+      function checkdaterange(){
+        if(moment(window.startdate.value).isBefore(window.enddate.value) || moment(window.startdate.value).isSame(window.enddate.value)){
+          alert("เริ่มทำการประมวลผล")
+          return true
         }
         else{
-          positive =- element.timeused
+          alert("กรุณาเลือกวันที่จาก อดีต ถึง ปัจจุบัน")
+          return false
         }
-        positive = positive / 60;
-        positive = parseFloat(positive.toFixed(2))
-        amount.push([element.name,element.received,String(element.received)])
-        time.push([element.name,positive,timeConvert(positive)])
-      });
-      console.log(amount,time)
-      
+      }
+      function checkdaterange2(){
+        if(moment(window.startdate2.value).isBefore(window.enddate2.value) || moment(window.startdate2.value).isSame(window.enddate2.value)){
+          alert("เริ่มทำการประมวลผล")
+          return true
+        }
+        else{
+          alert("กรุณาเลือกวันที่จาก อดีต ถึง ปัจจุบัน")
+          return false
+        }
+      }
+    </script>
+    <!-- <script type="text/javascript">
+
+
+    var chart = <%- JSON.stringify(chart) %>
+
+
+      google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
+      console.log(chart[0].data)
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable(window.chart[0].data);
+
+        var options = {
+          pieSliceText: 'value-and-percentage',
+          'chartArea': {'width': '100%', 'height': '80%'},
+          'legend': {'position': 'right'},
+          height: 500
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+    <script type="text/javascript">
+
+    google.charts.load('current', {packages:['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
     function drawChart() {
-      var data = google.visualization.arrayToDataTable(amount);
-      var data2 = google.visualization.arrayToDataTable(time);
+      var data = google.visualization.arrayToDataTable(window.chart[1].data);
 
-      var options1 = {
-        title: "จำนวนรายการแจ้งที่ดำเนินการสำเร็จลุล่วงของพนักงานแต่ละคน",
-
-        bar: {groupWidth: '50%'},
+      var options = {
+        width:"100%",
+        height:"100%",
+        'chartArea': {'width': '80%', 'height': '75%'},
+        height:500,
+        animation:{easing:'inAndOut'},
         legend: { position: 'none' },
-        'chartArea': {'width': '70%', 'height': '50%'},
-
       };
-      var options2 = {
-        title: "ระยะเวลาที่ใช้ในการดำเนินการตามจำนวนรายการแจ้งที่สำเร็จลุล่วงของพนักงานแต่ละคน",
+      var chart = new google.visualization.BarChart(document.getElementById('barchart_values2'));
+      chart.draw(data, options);
+  }
+  
+      </script>
 
-        bar: {groupWidth: '50%'},
-        legend: { position: 'none' },
-        'chartArea': {'width': '70%', 'height': '50%'},
+  <script type="text/javascript">
 
-      };
-      var chart = new google.visualization.BarChart(document.getElementById('barchart_values'));
-      var chart2 = new google.visualization.BarChart(document.getElementById('barchart_values2'));
-      chart.draw(data, options1);
-      chart2.draw(data2, options2);
+  google.charts.load('current', {packages:['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+        ['','Fantasy & Sci Fi', 'Romance', 'Mystery/Crime', 'General',
+         'Western', 'Literature', { role: 'annotation' } ],
+        ['2010', 0, 24, 20, 32, 18, 5, 'asddsfdf'],
+        ['2020', 0, 22, 23, 30, 16, 9, ''],
+        ['2030', 0, 19, 29, 30, 12, 13, ''],
+        ['2010', 0, 24, 20, 32, 18, 5, 'asddsfdf'],
+        ['2020', 0, 22, 23, 30, 16, 9, ''],
+        ['2030', 0, 19, 29, 30, 12, 13, ''],
+        ['2010', 0, 24, 20, 32, 18, 5, 'asddsfdf'],
+        ['2020', 0, 22, 23, 30, 16, 9, ''],
+        ['2030', 0, 19, 29, 30, 12, 13, ''],
+        ['2010', 0, 24, 20, 32, 18, 5, 'asddsfdf'],
+        ['2020', 0, 22, 23, 30, 16, 9, ''],
+        ['2030', 0, 19, 29, 30, 12, 13, ''],
+        ['2010', 0, 24, 20, 32, 18, 5, 'asddsfdf'],
+        ['2020', 0, 22, 23, 30, 16, 9, ''],
+        ['2030', 0, 19, 29, 30, 12, 13, ''],
+        ['2010', 0, 24, 20, 32, 18, 5, 'asddsfdf'],
+        ['2020', 0, 22, 23, 30, 16, 9, ''],
+        ['2030', 0, 19, 29, 30, 12, 13, ''],
+        ['2010', 0, 24, 20, 32, 18, 5, 'asddsfdf'],
+        ['2020', 0, 22, 23, 30, 16, 9, ''],
+        ['2030', 0, 19, 29, 30, 12, 13, ''],
+        ['2010', 0, 24, 20, 32, 18, 5, 'asddsfdf'],
+        ['2020', 0, 22, 23, 30, 16, 9, ''],
+        ['2030', 0, 19, 29, 30, 12, 13, ''],
+        ['2010', 0, 24, 20, 32, 18, 5, 'asddsfdf'],
+        ['2020', 0, 22, 23, 30, 16, 9, ''],
+        ['2030', 0, 19, 29, 30, 12, 13, ''],
+      ]);
+
+
+    var options = {
+      isStacked: true,
+      width:"100%",
+      height:"1000",
+      'chartArea': {'width': '90%', 'height': '75%'},
+      legend: { position: 'top', maxLines: 3 },
+      bar: { groupWidth: '75%' },
+      annotations: {
+        alwaysOutside: true,
+      textStyle: {
+        fontSize: 17,
+        auraColor: 'none',
+        color: '#555'
+      }
+      }
+
+    };
+    var chart = new google.visualization.BarChart(document.getElementById('barchart_values3'));
+    chart.draw(data, options);
     }
 
-    }
+    </script>
 
-    requestdata()
-    reqamountbytype()
-    amountandtime()
-    function requestdata()
-    {
-    $.ajax({
-            type : "GET",
-            url : "/reqcountbyday",
-            success: function(reqcountbyday)
-            {
-              dashboard1(reqcountbyday)
-            },
-            error : function(e) {
-            alert("cannot update list")
-            }
-          });  
-          
-    }
-    function reqamountbytype(){
-      $.ajax({
-            type : "GET",
-            url : "/reqcountbytype",
-            success: function(reqcountbytype)
-            {
-              dashboard2(reqcountbytype[0])
+    <div class="chartsection">
+      <h4 class="title"><%=chart[0].title%></h4>
+      <div class="chart" id="piechart" ></div>
+    </div>
+    <div class="chartsection">
+      <h4 class="title"><%=chart[1].title%></h4>
+      <div class="chart" id="barchart_values2"></div>
+    </div>
+    <div class="chartsection">
+      <h4 class="title">อันดับรายการที่ได้รับการแจ้งซ่อมแบ่งตามระดับชั้นหรือห้องจากมากไปน้อย</h4>
+      <div class="chart" id="barchart_values3"></div>
+    </div>
 
-              
-            },
-            error : function(e) {
-            alert("cannot update list")
-            }
-          }); 
-    }
-    function reqamountbytype(){
-      $.ajax({
-            type : "GET",
-            url : "/reqcountbytype",
-            success: function(reqcountbytype)
-            {
-              dashboard2(reqcountbytype[0])
-
-              
-            },
-            error : function(e) {
-            alert("cannot update list")
-            }
-          }); 
-    }
-    function amountandtime(){
-      $.ajax({
-            type : "GET",
-            url : "/amountandtime",
-            success: function(amountandtime)
-            {
-              dashboard3(amountandtime)
-            },
-            error : function(e) {
-            alert("cannot update list")
-            }
-          }); 
-    }
-})
-</script>
-<div class="content" class="th">
-<% if(reqcountbyday.length > 0){ %>
-<div class="chart" id="chart_div" ></div>
-<div class="chart" id="chart_div2" ></div>
-<div class="chart" id="barchart_values" ></div>
-<div class="chart" id="barchart_values2" ></div>
-<% }
-else{ %>
-  <div class="th" style="background: white; display: block; width: 50%; line-height: 50px; padding: 10px; margin: 20vh auto;">เดือนนี้ยังไม่มีรายการแจ้งซ่อมเข้ามาใหม่</div>
-<%
-}
-%>
-</div>
-<%- include("partials/footer") %>
+    
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<%- include("partials/footer") %> -->

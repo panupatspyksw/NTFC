@@ -5,14 +5,14 @@
 }
 body
 {
-    background: #007CB7 ;
-    overflow:hidden;
+    /* overflow:hidden; */
 }
 .inputround{
     padding: 0 10px;
     font-size: 20px;
     line-height: 40px;
-    width: 300px;
+    width: 100%;
+    min-width: 270px;
     border: solid 2px rgb(182, 182, 182);
     border-radius: 50px;
     background: white;

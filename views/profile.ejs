@@ -320,10 +320,10 @@ var profiledata
                 <label for="username" class="en inputlabel">USERID</label>
                 <input class="profileinput" type="text" name="userid" id="" value="<%=profiledata.user_id%>" placeholder="user id" readonly required>
             </div>
-            <div class="inputbox">
+            <!-- <div class="inputbox">
                 <label for="username" class="en inputlabel">USERNAME</label>
                 <input class="profileinput" type="text" name="username" id="" value="<%=profiledata.user_username%>" placeholder="username" readonly required>
-            </div>
+            </div> -->
             <div class="inputbox">
             <label for="username" class="en inputlabel">FIRSTNAME</label>
             <input class="profileinput" type="text" name="firstname" id="" value="<%=profiledata.user_firstname%>" placeholder="firstname" readonly required>
@@ -340,10 +340,10 @@ var profiledata
             <label for="username" class="en inputlabel">PHONE</label>
             <input class="profileinput" type="text" name="phone" id="" value="<%=profiledata.user_phone%>" placeholder="phone" required>
             </div>
-            <div class="inputbox">
+            <!-- <div class="inputbox">
             <label for="username" class="en inputlabel">PASSWORD</label>
             <input class="profileinput" type="password" name="password" id="password" value="<%=profiledata.user_password %>" placeholder="password" required><span class="fas fa-eye" id="eyepassword"></span>
-            </div>
+            </div> -->
             <div style="text-align: left; width: 100%; display: flex; margin-top: 20px;">
             <h4 class="th" style="line-height: 34px; display: inline-block; margin-right: auto;">ตั้งค่าการแจ้งเตือนทางอีเมล </h4>
             <% if(notifyforreq == 1){%>
@@ -392,8 +392,8 @@ var profiledata
         var switchnotify = document.querySelector("input#notify");
         var check1 = false;
         var check2 = false;
-        var eye = document.getElementById("eyepassword")
-        var password = document.getElementById("password")
+        // var eye = document.getElementById("eyepassword")
+        // var password = document.getElementById("password")
         var profilebg = document.getElementById("profilebg")
         var headerprofilebg = document.getElementById("usericon")
         
@@ -417,19 +417,19 @@ var profiledata
         headerprofilebg.style.backgroundPosition = "center";
         }
         }
-        eye.addEventListener("click",function(){
-            if(password.type == "password"){
-                password.type = "text";
-                eye.classList.remove("fa-eye")
-                eye.classList.add("fa-eye-slash");
+        // eye.addEventListener("click",function(){
+        //     if(password.type == "password"){
+        //         password.type = "text";
+        //         eye.classList.remove("fa-eye")
+        //         eye.classList.add("fa-eye-slash");
 
-            }
-            else{
-                password.type = "password";
-                eye.classList.add("fa-eye")
-                eye.classList.remove("fa-eye-slash");
-            }
-        })
+        //     }
+        //     else{
+        //         password.type = "password";
+        //         eye.classList.add("fa-eye")
+        //         eye.classList.remove("fa-eye-slash");
+        //     }
+        // })
 
 
         switchnotify.addEventListener("click",function(){

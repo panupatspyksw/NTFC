@@ -15,11 +15,10 @@ var user_id,message
     <link rel="stylesheet" href="/login.css">
     <link rel="stylesheet" href="/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
-    <title>Document</title>
+    <title>COSCI เว็บแจ้งซ่อมสาธารณูปโภค และอาคารสถานที่</title>
 </head>
 <body>
-    <form action="/auth" method="POST">
-
+    <form action="/auth" method="POST" style="text-align: center;">
         <h1 class="th head">เข้าสู่ระบบ</h1>
         <input class="inputround" id="id" type="text" placeholder="Your ID" name="user_id" value="<%= user_id %>" required>
         <%if(message){%>
@@ -34,6 +33,9 @@ var user_id,message
         <input class="inputround" id="password" type="password" name ="user_password" value="" placeholder="Password" required>
         <% } %>
         <input class="loginbtn" type="submit" value="Login">
+        <a class="th forgotpw" href="/recoverlogin">ลืมรหัสผ่านใช่หรือไม่</a><br>
+        <a class="th signup" href="/signup">ลงทะเบียนใช้งาน</a>
+
     </form>
 </body>
 </html>

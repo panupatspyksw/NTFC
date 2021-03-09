@@ -2,9 +2,11 @@ body{
     background: url(/background-01.jpg) ;
     background-attachment: fixed;
     background-size: cover;
+    overflow-x: hidden;
 }
 
 input[type="submit"]{
+    outline: none;
     font-size: 20px;
     border: none;
     width: 200px;
@@ -40,4 +42,16 @@ input[type="submit"].cancel{
 input[type="submit"].cancel:hover{
     background-color: rgb(102, 28, 28);
 
+}
+
+.backbtn{
+    width: 150px;
+    display: block;
+    background: rgb(7, 80, 139);
+    color: white;
+    line-height: 40px;    
+    border-radius: 20px;
+    text-decoration: none;
+    outline: none;
+    margin: 10px auto;
 }

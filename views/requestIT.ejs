@@ -1,7 +1,8 @@
 <%- include("partials/header") %>
-<% var locations, products %>
+<% var locations, products, header %>
 <link rel="stylesheet" href="/requestmenu.css">
 <link rel="stylesheet" href="/css/newrequest.css">
+<link rel="stylesheet" href="/css/confirm.css">
 
 <!-- #for clone -->
 <fieldset class="listorder" style="display: none;" >
@@ -25,12 +26,19 @@
 <object data="" id="listimage" style="display: none;" alt="preview" width="130px" height="130px"></object>
 <div class="requestbox">
     <h1 class="th head">แจ้งซ่อมฝ่ายไอที</h1>
-    <form action="" method="POST" enctype="multipart/form-data">
+    <form action="" method="POST" enctype="multipart/form-data" id="formreq">
+        <%if(header=="student"){%>
+            <div class="inputbox">
+                <label for="username" class="en inputlabel">EMAIL</label>
+                <input class="reqinput" type="email" name="email" id="email" list="" value="" placeholder="example@g.swu.ac.th" required  autocomplete="off">
+
+            </div>
+        <%}%>
         <div class="inputbox">
             <label for="username" class="en inputlabel">TITLE</label>
             <input class="reqinput" type="text" name="title" list="title" value="" placeholder="title" required  autocomplete="off">
             <datalist id="title">
-                <% console.log(problem)
+                <% 
                 for(var i = 0; i < problem.length; i++){
                 %>
                 <option><%= problem[i].problem_title %></option>
@@ -74,13 +82,27 @@
                         </section>
                     </div>
                 </div>
-            <input type="submit" id="submit" value="request" style="margin-top: 20px;">
+            <input type="submit" id="submit" value="request" style="margin-top: 20px;" ">
         </div>
     </form>
 </div>
 <script src="/js/requestnew.js"></script>
 
-    
+<%if(header == "student"){%>
+<div class="confirmsection">
+    <div class="confirmemail"></div>
+    <div id="confirmbox">
+        <h3 class="th">ยืนยันรหัสทางอีเมลเพื่อแจ้งซ่อม</h3>
+        <p class="th">(กรุณากรอกรหัสที่ทางระบบส่งไปทางอีเมลเพื่อยืนยันการแจ้งซ่อม)</p>
+        <input type="text" name="confirmotp" id="OTPinput">
+        <button class="confirm th" onclick="EnterOtp()">ยืนยัน</button>
+        <button class="cancel th" onclick="cancelrequest()">ยกเลิก</button>
+    </div>
+</div>
+<script src="/js/OTPmail.js"></script>
+
+<%}%>
+
 
 
 <%- include("partials/footer") %>
