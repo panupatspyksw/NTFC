@@ -16,10 +16,10 @@ const { throws } = require('assert');
 const e = require('express');
 
 var db_config = {
-	host     : 'localhost',
-	user     : 'root',
-	password : '',
-	database : 'notification'
+	host     : 'mysql-repaironlineservice-13336.nodechef.com',
+	user     : 'ncuser_11731',
+	password : 'ugMBcMnhJYLmEXyirVc0IhIxp55xMs',
+	database : 'repaironlineservice'
 };
 
 

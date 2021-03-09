@@ -68,10 +68,10 @@ app.use(session((_session = {
 //   };
 
 var db_config = {
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'notification'
+  host: 'mysql-repaironlineservice-13336.nodechef.com',
+  user: 'ncuser_11731',
+  password: 'ugMBcMnhJYLmEXyirVc0IhIxp55xMs',
+  database: 'repaironlineservice'
 }; // var connection = mysql.createConnection(db_config);
 
 function handleDisconnect() {

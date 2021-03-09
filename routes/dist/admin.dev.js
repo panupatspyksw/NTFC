@@ -41,10 +41,10 @@ var _require7 = require('assert'),
 var e = require('express');
 
 var db_config = {
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'notification'
+  host: 'mysql-repaironlineservice-13336.nodechef.com',
+  user: 'ncuser_11731',
+  password: 'ugMBcMnhJYLmEXyirVc0IhIxp55xMs',
+  database: 'repaironlineservice'
 }; // setup router
 
 router.use(express["static"]("public"));
