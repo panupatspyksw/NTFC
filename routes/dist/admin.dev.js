@@ -44,7 +44,9 @@ var db_config = {
   host: 'mysql-repaironlineservice-13336.nodechef.com',
   user: 'ncuser_11731',
   password: 'ugMBcMnhJYLmEXyirVc0IhIxp55xMs',
-  database: 'repaironlineservice'
+  database: 'repaironlineservice',
+  connectionLimit: 100,
+  port: '2397'
 }; // setup router
 
 router.use(express["static"]("public"));
