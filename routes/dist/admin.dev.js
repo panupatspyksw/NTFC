@@ -1052,7 +1052,7 @@ router.get("/dashboard/BD", function (req, res) {
       getcountoflists(req, res).then(function (value) {
         countstatus = value;
         res.render("dashboard", {
-          title: "ไอที",
+          title: "อาคาร",
           listemployee: listemployee,
           countstatus: countstatus,
           user_id: req.session.userID,

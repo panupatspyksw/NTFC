@@ -2344,7 +2344,7 @@ app.post('/requeststd/IT', upload.array('images', 10), function (req, res, next)
                     }
 
                     var subject = "รายการแจ้งซ่อมเข้ามาใหม่";
-                    var html = "มีนิสิตได้ทำการแจ้งซ่อมเข้ามา<br>หมายเหตุจา�������ผู้แจ้ง : " + description + "<br>หมายเลขไอดีรายการแจ้ง : " + requestID + "<br><br> ติดต่อผู้แจ้ง : " + email;
+                    var html = "นิสิตได้ทำการแจ้งซ่อมเข้ามา<br>หมายเหตุจากผู้แจ้ง : " + description + "<br>หมายเลขไอดีรายการแจ้ง : " + requestID + "<br><br> ติดต่อผู้แจ้ง : " + email;
                     sendmail(emails, subject, html);
                   }
                 });
@@ -2445,7 +2445,7 @@ app.post('/requeststd/MD', upload.array('images', 10), function (req, res, next)
                     }
 
                     var subject = "รายการแจ้งซ่อมเข้ามาใหม่";
-                    var html = "คุณ" + req.session.fname + " " + req.session.lname + " ได้ทำการแจ้งซ่อมเข้ามา<br>หมายเหตุจากผู้แจ้ง : " + description + "<br>หมายเลขไอดีรายการแจ้ง : " + requestID + "<br><br> ติดต่อผู้แจ้ง : " + email;
+                    var html = "นิสิตได้ทำการแจ้งซ่อมเข้ามา<br>หมายเหตุจากผู้แจ้ง : " + description + "<br>หมายเลขไอดีรายการแจ้ง : " + requestID + "<br><br> ติดต่อผู้แจ้ง : " + email;
                     sendmail(emails, subject, html);
                   }
                 });
@@ -2548,7 +2548,7 @@ app.post('/requeststd/BD', upload.array('images', 10), function (req, res, next)
                     }
 
                     var subject = "รายการแจ้งซ่อมเข้ามาใหม่";
-                    var html = "คุณ" + req.session.fname + " " + req.session.lname + " ได้ทำการแจ้งซ่อมเข้ามา<br>หมายเหตุจากผู้แจ้ง : " + description + "<br>หมายเลขไอดีรายการแจ้ง : " + requestID + "<br><br> ติดต่อผู้แจ้ง : " + email;
+                    var html = "นิสิตได้ทำการแจ้งซ่อมเข้ามา<br>หมายเหตุจากผู้แจ้ง : " + description + "<br>หมายเลขไอดีรายการแจ้ง : " + requestID + "<br><br> ติดต่อผู้แจ้ง : " + email;
                     sendmail(emails, subject, html);
                   }
                 });

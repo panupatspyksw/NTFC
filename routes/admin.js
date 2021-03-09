@@ -955,7 +955,7 @@ router.get("/dashboard/BD",(req,res)=>{
 		{
 			countstatus = value;
 			res.render("dashboard",{
-			title: "ไอที",
+			title: "อาคาร",
 			listemployee: listemployee,
 			countstatus : countstatus,
 			user_id : req.session.userID,
