@@ -266,7 +266,6 @@ router.post("/dashboard/employee",(req,res)=>{
 		}
 		requesttodatabase().then(()=>{
 			connection.end()
-			res.end()
 		})
 	}
 	else{

@@ -312,7 +312,6 @@ router.post("/dashboard/employee", function (req, res) {
     var connection = mysql.createConnection(db_config);
     requesttodatabase().then(function () {
       connection.end();
-      res.end();
     });
   } else {
     res.redirect("/");
