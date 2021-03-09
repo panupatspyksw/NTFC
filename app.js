@@ -82,7 +82,6 @@ var db_config = {
 
 app.use(require('./routes/ajaxreq.js')); 
 app.use(require('./routes/admin.js')); 
-app.use(require('./routes/dashboard.js')); 
 
 app.use(express.static("public"));
 app.use(express.static("img"));
