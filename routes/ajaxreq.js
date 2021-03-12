@@ -311,20 +311,20 @@ router.get("/searchreceivelist/:searchtext",(req,res)=>{
 	var sql = "";
 	if(req.session.user_departmentID == 4){
 		if(req.params.searchtext == "blank"){
-		sql = "select r.req_ID, r.req_title , s.req_status_title, r.req_created,r.req_status_id, r.req_des, CONCAT(m.user_firstname,' ',m.user_lastname) as createby from request r,member m, request_status s WHERE m.user_id = r.req_createdby AND r.req_repairby=? AND r.req_status_id=s.req_status_id order by r.req_created DESC";
+		sql = "select r.req_ID, r.req_title , s.req_status_title, r.req_created,r.req_status_id, r.req_des, CONCAT(m.user_firstname,' ',m.user_lastname) as createby from request r,member m, request_status s WHERE m.user_id = r.req_createdby AND r.req_repairby=? AND r.req_status_id=s.req_status_id order by CAST(r.req_status_id AS UNSIGNED), r.req_created DESC";
 		}
 		else{
 		var searchtext = "%"+req.params.searchtext+"%";
-		sql = "select r.req_ID, r.req_title , s.req_status_title, r.req_created,r.req_status_id, r.req_des, CONCAT(m.user_firstname,' ',m.user_lastname) as createby from request r,member m, request_status s WHERE m.user_id = r.req_createdby AND r.req_repairby=? AND r.req_status_id=s.req_status_id AND (r.req_ID like '"+searchtext+"' OR r.req_title like '"+searchtext+"') order by r.req_created DESC"
+		sql = "select r.req_ID, r.req_title , s.req_status_title, r.req_created,r.req_status_id, r.req_des, CONCAT(m.user_firstname,' ',m.user_lastname) as createby from request r,member m, request_status s WHERE m.user_id = r.req_createdby AND r.req_repairby=? AND r.req_status_id=s.req_status_id AND (r.req_ID like '"+searchtext+"' OR r.req_title like '"+searchtext+"') order by CAST(r.req_status_id AS UNSIGNED), r.req_created DESC"
 		}
 	}
 	else{
 		if(req.params.searchtext == "blank"){
-			sql = "select r.req_ID, r.req_title , s.req_status_title, r.req_created,r.req_status_id, r.req_des, CONCAT(m.user_firstname,' ',m.user_lastname) as createby from request r,member m, request_status s WHERE m.user_id = r.req_createdby AND r.req_getby=? AND r.req_status_id=s.req_status_id order by r.req_created DESC";
+			sql = "select r.req_ID, r.req_title , s.req_status_title, r.req_created,r.req_status_id, r.req_des, CONCAT(m.user_firstname,' ',m.user_lastname) as createby from request r,member m, request_status s WHERE m.user_id = r.req_createdby AND r.req_getby=? AND r.req_status_id=s.req_status_id order by CAST(r.req_status_id AS UNSIGNED), r.req_created DESC";
 			}
 			else{
 			var searchtext = "%"+req.params.searchtext+"%";
-			sql = "select r.req_ID, r.req_title , s.req_status_title, r.req_created,r.req_status_id, r.req_des, CONCAT(m.user_firstname,' ',m.user_lastname) as createby from request r,member m, request_status s WHERE m.user_id = r.req_createdby AND r.req_getby=? AND r.req_status_id=s.req_status_id AND (r.req_ID like '"+searchtext+"' OR r.req_title like '"+searchtext+"') order by r.req_created DESC"
+			sql = "select r.req_ID, r.req_title , s.req_status_title, r.req_created,r.req_status_id, r.req_des, CONCAT(m.user_firstname,' ',m.user_lastname) as createby from request r,member m, request_status s WHERE m.user_id = r.req_createdby AND r.req_getby=? AND r.req_status_id=s.req_status_id AND (r.req_ID like '"+searchtext+"' OR r.req_title like '"+searchtext+"') order by CAST(r.req_status_id AS UNSIGNED), r.req_created DESC"
 			}	
 	}
 

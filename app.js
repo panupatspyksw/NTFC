@@ -1358,10 +1358,10 @@ app.get("/receivelist?",function(req,res){
 		var requestlists = [];
 		var sql = "";
 		if(req.session.user_departmentID == 4){
-			sql = 'select r.req_ID, r.req_title , s.req_status_title, r.req_created,r.req_status_id, r.req_des from request r, request_status s WHERE r.req_repairby=? AND r.req_status_id=s.req_status_id order by r.req_created DESC'
+			sql = 'select r.req_ID, r.req_title , s.req_status_title, r.req_created,r.req_status_id, r.req_des from request r, request_status s WHERE r.req_repairby=? AND r.req_status_id=s.req_status_id order by CAST(r.req_status_id AS UNSIGNED), r.req_created DESC'
 		}
 		else{
-			sql = 'select r.req_ID, r.req_title , s.req_status_title, r.req_created,r.req_status_id, r.req_des from request r, request_status s WHERE r.req_getby=? AND r.req_status_id=s.req_status_id order by r.req_created DESC'
+			sql = 'select r.req_ID, r.req_title , s.req_status_title, r.req_created,r.req_status_id, r.req_des from request r, request_status s WHERE r.req_getby=? AND r.req_status_id=s.req_status_id order by CAST(r.req_status_id AS UNSIGNED), r.req_created DESC'
 		}
 		var connection = mysql.createConnection(db_config);
 
@@ -1435,7 +1435,7 @@ app.get("/receivelist/:id",function(req,res){
 			const getrequestkey = await new Promise(function(resolve, reject) {
 				var sql = ""
 				if(req.session.user_departmentID == 4){
-				sql = "select * from request r, requesttype rt where r.req_ID = ? and r.req_type_id = rt.req_type_id and r.req_repairby = ?";
+				sql = "select * from request r, requesttype rt where r.req_ID = ? and r.req_type_id = rt.req_type_id and r.req_repairby = ? ";
 				}
 				else{
 			    sql = "select * from request r, requesttype rt where r.req_ID = ? and r.req_type_id = rt.req_type_id and r.req_getby = ?";
