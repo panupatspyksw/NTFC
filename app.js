@@ -49,12 +49,12 @@ app.use(session({
 
 // };
 var db_config = {
-	host     : '34.101.180.99',
-	user     : 'root',
-	password : '',
-	database : 'notification',
+	host     : 'mysql-repaironlineservice2-13336.nodechef.com',
+	user     : 'ncuser_7811',
+	password : 'pxkzWQuIEQV5kL8fECk6LjCQHqUCk4',
+	database : 'repaironlineservice2',
 	connectionLimit: 100,
-
+	port: '2409'
 };
 // var connection = mysql.createConnection(db_config);
   
