@@ -221,7 +221,9 @@ formsearch.addEventListener("submit", function(evt) {
     else if(path == "ยืนยันรหัสในการลงทะเบียน" ){
         var inputpassword = document.querySelectorAll("input[type='password']")
         var email = document.querySelector("input[type='email']").value
-        if(inputpassword[0].value == inputpassword[1].value && inputpassword[0].value != "" && (inputpassword[0].value.match(/[a-z]+/) || inputpassword[0].value.match(/[A-Z]+/)) && inputpassword[0].value.match(/[0-9]+/) && inputpassword[0].value.match(/[$@#&!]+/) && !(inputpassword[0].value.match(/[ก-๚]/g))){
+        var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+
+        if(inputpassword[0].value == inputpassword[1].value && inputpassword[0].value != "" && (inputpassword[0].value.match(/[a-z]+/) || inputpassword[0].value.match(/[A-Z]+/)) && inputpassword[0].value.match(/[0-9]+/) && format.test(inputpassword[0]) && !(inputpassword[0].value.match(/[ก-๚]/g))){
 
         $.ajax({
         type : "POST",

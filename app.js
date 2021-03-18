@@ -39,16 +39,23 @@ app.use(session({
 // 	password : 'bc3f80a0',
 // 	database : 'heroku_967c364b1d024e2'
 //   };
+// var db_config = {
+// 	host     : 'mysql-repaironlineservice-13336.nodechef.com',
+// 	user     : 'ncuser_11731',
+// 	password : 'ugMBcMnhJYLmEXyirVc0IhIxp55xMs',
+// 	database : 'repaironlineservice',
+// 	connectionLimit: 100,
+// 	port: '2397'
+
+// };
 var db_config = {
-	host     : 'mysql-repaironlineservice-13336.nodechef.com',
-	user     : 'ncuser_11731',
-	password : 'ugMBcMnhJYLmEXyirVc0IhIxp55xMs',
-	database : 'repaironlineservice',
+	host     : '34.101.180.99',
+	user     : 'root',
+	password : '',
+	database : 'notification',
 	connectionLimit: 100,
-	port: '2397'
 
 };
-  
 // var connection = mysql.createConnection(db_config);
   
   function handleDisconnect() {

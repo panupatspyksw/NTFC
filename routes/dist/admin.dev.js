@@ -38,15 +38,22 @@ var _require6 = require('repl'),
 var _require7 = require('assert'),
     _throws = _require7["throws"];
 
-var e = require('express');
+var e = require('express'); // var db_config = {
+// 	host     : 'mysql-repaironlineservice-13336.nodechef.com',
+// 	user     : 'ncuser_11731',
+// 	password : 'ugMBcMnhJYLmEXyirVc0IhIxp55xMs',
+// 	database : 'repaironlineservice',
+// 	connectionLimit: 100,
+// 	port: '2397'
+// };
+
 
 var db_config = {
-  host: 'mysql-repaironlineservice-13336.nodechef.com',
-  user: 'ncuser_11731',
-  password: 'ugMBcMnhJYLmEXyirVc0IhIxp55xMs',
-  database: 'repaironlineservice',
-  connectionLimit: 100,
-  port: '2397'
+  host: '34.101.180.99',
+  user: 'root',
+  password: '',
+  database: 'notification',
+  connectionLimit: 100
 }; // setup router
 
 router.use(express["static"]("public"));

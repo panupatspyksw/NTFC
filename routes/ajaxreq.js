@@ -11,19 +11,13 @@ const { count, Console } = require('console');
 const nodemailer = require('nodemailer');
 const { send } = require('process');
 var MemoryStore = require('memorystore')(session)
-// var db_config = {
-// 	host     : 'us-cdbr-east-02.cleardb.com',
-// 	user     : 'bbc5aa79adb978',
-// 	password : 'bc3f80a0',
-// 	database : 'heroku_967c364b1d024e2'
-//   };
+
 var db_config = {
-	host     : 'mysql-repaironlineservice-13336.nodechef.com',
-	user     : 'ncuser_11731',
-	password : 'ugMBcMnhJYLmEXyirVc0IhIxp55xMs',
-	database : 'repaironlineservice',
+	host     : '34.101.180.99',
+	user     : 'root',
+	password : '',
+	database : 'notification',
 	connectionLimit: 100,
-	port: '2397'
 
 };
 //   function handleDisconnect() {
