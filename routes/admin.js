@@ -266,7 +266,9 @@ router.post("/dashboard/employee",(req,res)=>{
 					profileimg : req.session.profileimage,
 					chart : chart,
 					employeedata : requestemployeeworkinfo,
-					listsdetail : detailreqlist
+					listsdetail : detailreqlist,
+					currentpage : "dashboard"
+
 				})
 			})
 		}
@@ -311,6 +313,8 @@ router.get("/dashboard/IT",(req,res)=>{
 			user_usertype : req.session.user_usertype,
 			user_firstname : req.session.user_firstname,
 			profileimg : req.session.profileimage,
+			currentpage : "dashboard"
+
 			})
 		})
 		connection.end()
@@ -595,7 +599,9 @@ router.post("/dashboard/IT",(req,res)=>{
 					profileimg : req.session.profileimage,
 					chart : chart,
 					employeedata : requestemployeeworkinfo,
-					listsdetail : detailreqlist
+					listsdetail : detailreqlist,
+					currentpage : "dashboard"
+
 				})
 			})
 		}
@@ -638,6 +644,8 @@ router.get("/dashboard/MD",(req,res)=>{
 			user_usertype : req.session.user_usertype,
 			user_firstname : req.session.user_firstname,
 			profileimg : req.session.profileimage,
+			currentpage : "dashboard"
+
 			})
 		})
 		connection.end()
@@ -924,7 +932,9 @@ router.post("/dashboard/MD",(req,res)=>{
 					profileimg : req.session.profileimage,
 					chart : chart,
 					employeedata : requestemployeeworkinfo,
-					listsdetail : detailreqlist
+					listsdetail : detailreqlist,
+					currentpage : "dashboard"
+
 				})
 			})
 		}
@@ -969,6 +979,8 @@ router.get("/dashboard/BD",(req,res)=>{
 			user_usertype : req.session.user_usertype,
 			user_firstname : req.session.user_firstname,
 			profileimg : req.session.profileimage,
+			currentpage : "dashboard"
+
 			})
 		})
 		connection.end()
@@ -1257,7 +1269,9 @@ router.post("/dashboard/BD",(req,res)=>{
 					profileimg : req.session.profileimage,
 					chart : chart,
 					employeedata : requestemployeeworkinfo,
-					listsdetail : detailreqlist
+					listsdetail : detailreqlist,
+					currentpage : "dashboard"
+
 				})
 			})
 		}
@@ -1561,7 +1575,9 @@ router.post("/dashboard/PS",(req,res)=>{
 					profileimg : req.session.profileimage,
 					chart : chart,
 					employeedata : requestemployeeworkinfo,
-					listsdetail : detailreqlist
+					listsdetail : detailreqlist,
+					currentpage : "dashboard"
+
 				})
 			})
 		}
@@ -1605,6 +1621,8 @@ router.get("/dashboard/PS",(req,res)=>{
 			user_usertype : req.session.user_usertype,
 			user_firstname : req.session.user_firstname,
 			profileimg : req.session.profileimage,
+			currentpage : "dashboard"
+
 			})
 		})
 		connection.end()
@@ -1644,6 +1662,8 @@ router.get("/dashboard/",(req,res) => {
 		user_usertype : req.session.user_usertype,
 		user_firstname : req.session.user_firstname,
 		profileimg : req.session.profileimage,
+		currentpage : "dashboard"
+
 		})
 		})
 	}

@@ -242,10 +242,10 @@ formsearch.addEventListener("submit", function(evt) {
         var success = false
         var inputpassword = document.querySelectorAll("input[type='password']")
         console.log(inputpassword)
-        
-var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+        var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
 
-        if(inputpassword[0].value == inputpassword[1].value && inputpassword[0].value != "" && (inputpassword[0].value.match(/[a-z]+/) || inputpassword[0].value.match(/[A-Z]+/)) && inputpassword[0].value.match(/[0-9]+/) && format.test(inputpassword[0]) && !(inputpassword[0].value.match(/[ก-๚]/g))){            alert("ดำเนินการเปลี่ยนแปลงเรียบร้อย")
+        if(inputpassword[0].value == inputpassword[1].value && inputpassword[0].value != "" && (inputpassword[0].value.match(/[a-z]+/) || inputpassword[0].value.match(/[A-Z]+/)) && inputpassword[0].value.match(/[0-9]+/) && (format.test(inputpassword[0].value)==true) && !(inputpassword[0].value.match(/[ก-๚]/g))){            
+            alert("ดำเนินการเปลี่ยนแปลงเรียบร้อย")
             $.ajax({
             type : "POST",
             data: JSON.stringify({ user: datauser, fromweb: true , password: inputpassword[0].value}),

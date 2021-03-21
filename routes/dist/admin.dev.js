@@ -299,7 +299,8 @@ router.post("/dashboard/employee", function (req, res) {
                   profileimg: req.session.profileimage,
                   chart: chart,
                   employeedata: requestemployeeworkinfo,
-                  listsdetail: detailreqlist
+                  listsdetail: detailreqlist,
+                  currentpage: "dashboard"
                 });
               });
 
@@ -349,7 +350,8 @@ router.get("/dashboard/IT", function (req, res) {
           logined: req.session.loggedin,
           user_usertype: req.session.user_usertype,
           user_firstname: req.session.user_firstname,
-          profileimg: req.session.profileimage
+          profileimg: req.session.profileimage,
+          currentpage: "dashboard"
         });
       });
       connection.end();
@@ -660,7 +662,8 @@ router.post("/dashboard/IT", function (req, res) {
                   profileimg: req.session.profileimage,
                   chart: chart,
                   employeedata: requestemployeeworkinfo,
-                  listsdetail: detailreqlist
+                  listsdetail: detailreqlist,
+                  currentpage: "dashboard"
                 });
               });
 
@@ -708,7 +711,8 @@ router.get("/dashboard/MD", function (req, res) {
           logined: req.session.loggedin,
           user_usertype: req.session.user_usertype,
           user_firstname: req.session.user_firstname,
-          profileimg: req.session.profileimage
+          profileimg: req.session.profileimage,
+          currentpage: "dashboard"
         });
       });
       connection.end();
@@ -1019,7 +1023,8 @@ router.post("/dashboard/MD", function (req, res) {
                   profileimg: req.session.profileimage,
                   chart: chart,
                   employeedata: requestemployeeworkinfo,
-                  listsdetail: detailreqlist
+                  listsdetail: detailreqlist,
+                  currentpage: "dashboard"
                 });
               });
 
@@ -1067,7 +1072,8 @@ router.get("/dashboard/BD", function (req, res) {
           logined: req.session.loggedin,
           user_usertype: req.session.user_usertype,
           user_firstname: req.session.user_firstname,
-          profileimg: req.session.profileimage
+          profileimg: req.session.profileimage,
+          currentpage: "dashboard"
         });
       });
       connection.end();
@@ -1382,7 +1388,8 @@ router.post("/dashboard/BD", function (req, res) {
                   profileimg: req.session.profileimage,
                   chart: chart,
                   employeedata: requestemployeeworkinfo,
-                  listsdetail: detailreqlist
+                  listsdetail: detailreqlist,
+                  currentpage: "dashboard"
                 });
               });
 
@@ -1730,7 +1737,8 @@ router.post("/dashboard/PS", function (req, res) {
                   profileimg: req.session.profileimage,
                   chart: chart,
                   employeedata: requestemployeeworkinfo,
-                  listsdetail: detailreqlist
+                  listsdetail: detailreqlist,
+                  currentpage: "dashboard"
                 });
               });
 
@@ -1779,7 +1787,8 @@ router.get("/dashboard/PS", function (req, res) {
           logined: req.session.loggedin,
           user_usertype: req.session.user_usertype,
           user_firstname: req.session.user_firstname,
-          profileimg: req.session.profileimage
+          profileimg: req.session.profileimage,
+          currentpage: "dashboard"
         });
       });
       connection.end();
@@ -1812,7 +1821,8 @@ router.get("/dashboard/", function (req, res) {
         logined: req.session.loggedin,
         user_usertype: req.session.user_usertype,
         user_firstname: req.session.user_firstname,
-        profileimg: req.session.profileimage
+        profileimg: req.session.profileimage,
+        currentpage: "dashboard"
       });
     });
   } else {

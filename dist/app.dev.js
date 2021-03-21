@@ -244,7 +244,8 @@ app.get("/profile", function (req, res) {
           user_firstname: req.session.user_firstname,
           profileimg: req.session.profileimage,
           profiledata: profiledata,
-          notifyforreq: results[0].notifyforreq
+          notifyforreq: results[0].notifyforreq,
+          currentpage: "profile"
         });
       });
       connection.end();
@@ -411,7 +412,8 @@ app.get("/request", function (req, res) {
           user_usertype: req.session.user_usertype,
           user_firstname: req.session.user_firstname,
           departmentID: req.session.user_departmentID,
-          profileimg: req.session.profileimage
+          profileimg: req.session.profileimage,
+          currentpage: "request"
         });
       } else {
         res.render("request", {
@@ -422,7 +424,8 @@ app.get("/request", function (req, res) {
           user_usertype: req.session.user_usertype,
           user_firstname: req.session.user_firstname,
           departmentID: req.session.user_departmentID,
-          profileimg: req.session.profileimage
+          profileimg: req.session.profileimage,
+          currentpage: "request"
         });
       }
     });
@@ -500,7 +503,8 @@ app.get("/requestIT", function (req, res) {
                   locations: location,
                   products: product,
                   problem: problemfortitle,
-                  profileimg: req.session.profileimage
+                  profileimg: req.session.profileimage,
+                  currentpage: "request"
                 });
               });
 
@@ -689,7 +693,8 @@ app.get("/requestMD", function (req, res) {
                   locations: location,
                   products: product,
                   problem: problemfortitle,
-                  profileimg: req.session.profileimage
+                  profileimg: req.session.profileimage,
+                  currentpage: "request"
                 });
               });
 
@@ -877,7 +882,8 @@ app.get("/requestBD", function (req, res) {
                   locations: location,
                   products: product,
                   problem: problemfortitle,
-                  profileimg: req.session.profileimage
+                  profileimg: req.session.profileimage,
+                  currentpage: "request"
                 });
               });
 
@@ -1029,7 +1035,8 @@ app.get("/requestlist", function (req, res) {
             user_firstname: req.session.user_firstname,
             departmentID: req.session.user_departmentID,
             requestlists: requestlists,
-            profileimg: req.session.profileimage
+            profileimg: req.session.profileimage,
+            currentpage: "yourequest"
           });
         } else {
           res.render("listrequest", {
@@ -1040,7 +1047,8 @@ app.get("/requestlist", function (req, res) {
             user_firstname: req.session.user_firstname,
             departmentID: req.session.user_departmentID,
             requestlists: requestlists,
-            profileimg: req.session.profileimage
+            profileimg: req.session.profileimage,
+            currentpage: "yourequest"
           });
         }
 
@@ -1162,7 +1170,8 @@ app.get("/requestlist/:id", function (req, res) {
                   products: products,
                   images: images,
                   history: history,
-                  profileimg: req.session.profileimage
+                  profileimg: req.session.profileimage,
+                  currentpage: "yourequest"
                 });
               });
 
@@ -1221,7 +1230,8 @@ app.get("/newlist", function (req, res) {
             user_firstname: req.session.user_firstname,
             departmentID: req.session.user_departmentID,
             requestlists: requestlists,
-            profileimg: req.session.profileimage
+            profileimg: req.session.profileimage,
+            currentpage: "newrequest"
           });
         } else {
           res.render("listnew", {
@@ -1232,7 +1242,8 @@ app.get("/newlist", function (req, res) {
             user_firstname: req.session.user_firstname,
             departmentID: req.session.user_departmentID,
             requestlists: requestlists,
-            profileimg: req.session.profileimage
+            profileimg: req.session.profileimage,
+            currentpage: "new"
           });
         }
 
@@ -1357,7 +1368,8 @@ app.get("/newlist/:id", function (req, res) {
                     receiver: receiver,
                     products: products,
                     images: images,
-                    history: history
+                    history: history,
+                    currentpage: "new"
                   });
                 } else {
                   res.redirect("/newlist");
@@ -1616,7 +1628,8 @@ app.get("/receivelist?", function (req, res) {
           profileimg: req.session.profileimage,
           user_firstname: req.session.user_firstname,
           departmentID: req.session.user_departmentID,
-          requestlists: requestlists
+          requestlists: requestlists,
+          currentpage: "recieve"
         });
         connection.end();
       });
@@ -1796,7 +1809,8 @@ app.get("/receivelist/:id", function (req, res) {
                   products: products,
                   images: images,
                   history: history,
-                  statuss: requeststatus
+                  statuss: requeststatus,
+                  currentpage: "recieve"
                 });
               });
 

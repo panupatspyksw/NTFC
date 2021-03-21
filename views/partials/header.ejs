@@ -18,7 +18,7 @@
 
 </head>
 <% 
-var user_usertype, header, backbutton, user_id
+var user_usertype, header, backbutton, user_id, currentpage
 %>
 <body>
     <div id="header">
@@ -30,11 +30,27 @@ var user_usertype, header, backbutton, user_id
                 <div id="menubox">
                 <%if(header != "student"){%>
                 <span class="changetoburger">
-                    <a class="menulink" href="/request"><div class="link">REQUEST</div></a>
-                    <a class="menulink" href="/requestlist"><div class="link">YOUR REQUEST<span class="pointred"><%= countstatus[0] | 0 %></span></div></a>
+                    <%if(currentpage == "request"){%>
+                        <a class="menulink" style="opacity: 1;" href="/request"><div class="link">REQUEST</div></a>
+                    <%}else{%>
+                        <a class="menulink" href="/request"><div class="link">REQUEST</div></a>    
+                    <%}%>
+                    <%if(currentpage == "yourequest"){%>
+                        <a class="menulink" style="opacity: 1;" href="/requestlist"><div class="link">YOUR REQUEST<span class="pointred"><%= countstatus[0] | 0 %></span></div></a>
+                    <%}else{%>
+                        <a class="menulink" href="/requestlist"><div class="link">YOUR REQUEST<span class="pointred"><%= countstatus[0] | 0 %></span></div></a>
+                    <%}%>
                     <%if(user_usertype == 2){%>
-                    <a class="menulink" href="/receivelist"><div class="link">RECEIVED<span class="pointred"><%= countstatus[1] | 0 %></span></div></a>
-                    <a class="menulink" href="/newlist"><div class="link">NEW REQUEST<span class="pointred" id="newreq"><%= countstatus[2] | 0 %></span></div></a>
+                    <%if(currentpage == "recieve"){%>
+                        <a class="menulink" style="opacity: 1;" href="/receivelist"><div class="link">RECEIVED<span class="pointred"><%= countstatus[1] | 0 %></span></div></a>
+                    <%}else{%>
+                        <a class="menulink" href="/receivelist"><div class="link">RECEIVED<span class="pointred"><%= countstatus[1] | 0 %></span></div></a>
+                    <%}%>
+                    <%if(currentpage == "new"){%>
+                        <a class="menulink" style="opacity: 1;" href="/newlist"><div class="link">NEW REQUEST<span class="pointred" id="newreq"><%= countstatus[2] | 0 %></span></div></a>
+                    <%}else{%>
+                        <a class="menulink" href="/newlist"><div class="link">NEW REQUEST<span class="pointred" id="newreq"><%= countstatus[2] | 0 %></span></div></a>
+                    <%}%>
                     <%}%>
                     <%if(user_usertype == 3 || user_usertype == 4){%>
                         <a class="menulink" href="/dashboard"><div class="link">DASHBOARD</div></a>
@@ -58,7 +74,11 @@ var user_usertype, header, backbutton, user_id
                     <div class="usermenubox">
                     <!-- <span id="arrowmenu" class="fas fa-caret-up fa-3x"></span> -->
                     <a><span style="font-size: 12px;">LOGIN AS</span><br><%= user_id %></a>
-                    <a href="/profile">Profile</a>
+                    <%if(currentpage == "profile"){%>
+                        <a href="/profile" style="opacity: 1;">Profile</a>
+                    <%}else{%>
+                        <a href="/profile">Profile</a>
+                     <%}%>
                     <a href="/logout">Sign out</a>
                     </div>
                 </span>

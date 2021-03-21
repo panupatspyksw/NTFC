@@ -245,7 +245,9 @@ app.get("/profile",function(req,res){
 						user_firstname : req.session.user_firstname,
 						profileimg : req.session.profileimage,
 						profiledata : profiledata,
-						notifyforreq : results[0].notifyforreq
+						notifyforreq : results[0].notifyforreq,
+						currentpage : "profile"
+
 						
 					})
 				})
@@ -391,6 +393,7 @@ app.get("/request",function(req,res){
 				user_firstname : req.session.user_firstname,
 				departmentID : req.session.user_departmentID,
 				profileimg : req.session.profileimage,
+				currentpage : "request"
 
 			})
 		}
@@ -404,6 +407,7 @@ app.get("/request",function(req,res){
 				user_firstname : req.session.user_firstname,
 				departmentID : req.session.user_departmentID,
 				profileimg : req.session.profileimage,
+				currentpage : "request"
 
 			})
 		}
@@ -471,6 +475,7 @@ app.get("/requestIT",function(req,res){
 				products : product,
 				problem : problemfortitle,
 				profileimg : req.session.profileimage,
+				currentpage : "request"
 
 				})
 		
@@ -611,6 +616,7 @@ app.get("/requestMD",function(req,res){
 				products : product,
 				problem : problemfortitle,
 				profileimg : req.session.profileimage,
+				currentpage : "request"
 
 				})
 		
@@ -754,6 +760,7 @@ app.get("/requestBD",function(req,res){
 				products : product,
 				problem : problemfortitle,
 				profileimg : req.session.profileimage,
+				currentpage : "request"
 
 				})
 		
@@ -865,6 +872,7 @@ app.get("/requestlist",function(req,res){
 							des : results[i].req_des,
 							profileimg : req.session.profileimage,
 
+
 						}
 					)
 				createdat = "";
@@ -880,6 +888,8 @@ app.get("/requestlist",function(req,res){
 					departmentID : req.session.user_departmentID,
 					requestlists : requestlists,
 					profileimg : req.session.profileimage,
+					currentpage : "yourequest"
+
 
 				})
 			}
@@ -893,6 +903,7 @@ app.get("/requestlist",function(req,res){
 					departmentID : req.session.user_departmentID,
 					requestlists : requestlists,
 					profileimg : req.session.profileimage,
+					currentpage : "yourequest"
 
 				})
 			}
@@ -995,6 +1006,7 @@ app.get("/requestlist/:id",function(req,res){
 					images : images,
 					history : history,
 					profileimg : req.session.profileimage,
+					currentpage : "yourequest"
 
 				})
 				})
@@ -1054,6 +1066,7 @@ app.get("/newlist",function(req,res){
 						departmentID : req.session.user_departmentID,
 						requestlists : requestlists,
 						profileimg : req.session.profileimage,
+						currentpage : "newrequest"
 
 					})
 			}
@@ -1067,6 +1080,7 @@ app.get("/newlist",function(req,res){
 					departmentID : req.session.user_departmentID,
 					requestlists : requestlists,
 					profileimg : req.session.profileimage,
+					currentpage : "new"
 
 				})
 			}
@@ -1172,7 +1186,9 @@ app.get("/newlist/:id",function(req,res){
 					receiver : receiver,
 					products : products,
 					images : images,
-					history : history
+					history : history,
+					currentpage : "new"
+
 				})
 				}
 				else{
@@ -1400,7 +1416,9 @@ app.get("/receivelist?",function(req,res){
 					profileimg : req.session.profileimage,
 					user_firstname : req.session.user_firstname,
 					departmentID : req.session.user_departmentID,
-					requestlists : requestlists
+					requestlists : requestlists,
+					currentpage : "recieve"
+
 				})
 			connection.end()
 		})
@@ -1557,7 +1575,9 @@ app.get("/receivelist/:id",function(req,res){
 					products : products,
 					images : images,
 					history : history,
-					statuss : requeststatus
+					statuss : requeststatus,
+					currentpage : "recieve"
+
 				})
 
 			})
