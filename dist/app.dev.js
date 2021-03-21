@@ -185,7 +185,9 @@ app.post("/auth", function (req, res) {
 
   if (user_id && user_password) {
     connection.query('SELECT * FROM member WHERE user_id = ?', [user_id], function (error, results, fields) {
-      if (error) {} else if (results.length > 0) {
+      if (error) {
+        console.log(error);
+      } else if (results.length > 0) {
         bcrypt.compare(user_password, results[0].user_password, function (err, resultt) {
           if (resultt == true) {
             req.session.loggedin = true;
@@ -1576,7 +1578,7 @@ app.post("/newlist/:id", function (req, res) {
   }
 });
 app.get("/receivelist?", function (req, res) {
-  if (req.session.loggedin) {
+  if (req.session.loggedin && req.session.user_usertype == "2") {
     var countstatus = [];
     getcountoflists(req, res).then(function (value) {
       countstatus = value;
@@ -2035,7 +2037,13 @@ function getcountoflists(req, res) {
 
         case 9:
           requests = _context14.sent;
-          listscount = [requests[0].count, receives[0].count, news[0].count];
+
+          if (requests[0].count, receives[0].count, news[0].count) {
+            listscount = [requests[0].count, receives[0].count, news[0].count];
+          } else {
+            listscount = [0, 0, 0];
+          }
+
           connection.end();
           return _context14.abrupt("return", listscount);
 

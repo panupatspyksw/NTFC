@@ -180,6 +180,7 @@ app.post("/auth",function(req,res){
     if (user_id && user_password) {
 		connection.query('SELECT * FROM member WHERE user_id = ?', [user_id], function(error, results, fields) {
 			if(error){
+				console.log(error)
 			}
 			else if (results.length > 0) {
 				bcrypt.compare(user_password, results[0].user_password, function(err, resultt) {
@@ -1355,7 +1356,7 @@ app.post("/newlist/:id",function(req,res){
 
 app.get("/receivelist?",function(req,res){
 	
-	if(req.session.loggedin){
+	if(req.session.loggedin && req.session.user_usertype == "2"){
 		var countstatus = [];
 		getcountoflists(req,res).then( (value) =>{
 			countstatus = value;
@@ -1748,8 +1749,12 @@ async function getcountoflists(req,res){
 			resolve(0);
 		}
 	})})
-
+	if(requests[0].count, receives[0].count, news[0].count){
 	listscount = [requests[0].count, receives[0].count, news[0].count]
+	}
+	else{
+		listscount = [0,0,0]
+	}
 	connection.end()
 	return listscount
 }
