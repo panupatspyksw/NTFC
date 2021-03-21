@@ -208,7 +208,7 @@ formsearch.addEventListener("submit", function(evt) {
                 var inputphone = " <input id='phone' type='phone' class='inputround' placeholder='เบอร์โทรศัพท์' required>"
                 var inputpassword = " <input id='password' type='password' class='inputround' placeholder='รหัสผ่าน' required>"
                 var passworddes = "<p style='font-size:14px'>*กรุณากรอกรหัสผ่านเป็นภาษาอังกฤษเท่านั้นและประกอบด้วยตัวเลขและสัญลักษณ์</p>"
-                var inputrepassword = " <input type='password' class='inputround' placeholder='ยืนยันรหัสผ่าน' required>"
+                var inputrepassword = " <input type='password' class='inputround' placeholder='ยืนยันรหัสผ่าน' required  minlength='8' maxlength='15'>"
                 var checkboxpolicy = '<input type="checkbox" name="checkbox" value="check" style="display:inline-block" id="agree" required> ฉันยอมรับ<a class="th forgotpw" href="/policy" target="_blank">เงื่อนไขและข้อตกลง</a>ในการใช้งาน'
                 $("input[type='submit']").before(inputname,inputdepartment,inputusertype,inputemail,inputphone,inputpassword,passworddes,inputrepassword,checkboxpolicy);
             }
