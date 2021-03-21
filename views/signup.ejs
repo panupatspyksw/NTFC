@@ -223,7 +223,7 @@ formsearch.addEventListener("submit", function(evt) {
         var email = document.querySelector("input[type='email']").value
         var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
 
-        if(inputpassword[0].value == inputpassword[1].value && inputpassword[0].value != "" && (inputpassword[0].value.match(/[a-z]+/) || inputpassword[0].value.match(/[A-Z]+/)) && inputpassword[0].value.match(/[0-9]+/) && (format.test(inputpassword[0])==true) && !(inputpassword[0].value.match(/[ก-๚]/g))){
+        if(inputpassword[0].value == inputpassword[1].value && inputpassword[0].value != "" && (inputpassword[0].value.match(/[a-z]+/) || inputpassword[0].value.match(/[A-Z]+/)) && inputpassword[0].value.match(/[0-9]+/) && (format.test(inputpassword[0].value)==true) && !(inputpassword[0].value.match(/[ก-๚]/g))){
 
         $.ajax({
         type : "POST",
