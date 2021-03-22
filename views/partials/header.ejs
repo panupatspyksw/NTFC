@@ -162,7 +162,9 @@ var user_usertype, header, backbutton, user_id, currentpage
                     alert("รายการแจ้งซ่อมเข้ามาใหม่")
                     }
                     $("#newreq").html(""+numonheader.count);
-
+                    if(numonheader.count == undefined){
+                        window.location.replace("/login");
+                    }
                 }
             },
             error : function(e) {

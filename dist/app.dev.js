@@ -169,7 +169,11 @@ app.get("/", function (req, res) {
   }
 });
 app.get("/login", function (req, res) {
-  res.render("login");
+  if (req.session.userID != null && req.session.loggedin != null) {
+    res.render("/");
+  } else {
+    res.render("login");
+  }
 });
 app.get("/transition", function (req, res) {
   res.render("transitionload");
@@ -2051,13 +2055,7 @@ function getcountoflists(req, res) {
 
         case 9:
           requests = _context14.sent;
-
-          if (requests[0].count, receives[0].count, news[0].count) {
-            listscount = [requests[0].count, receives[0].count, news[0].count];
-          } else {
-            listscount = [0, 0, 0];
-          }
-
+          listscount = [requests[0].count, receives[0].count, news[0].count];
           connection.end();
           return _context14.abrupt("return", listscount);
 
@@ -2071,10 +2069,14 @@ function getcountoflists(req, res) {
 
 
 app.get("/requeststd", function (req, res) {
-  res.render("requestforstudent", {
-    header: "student",
-    backbutton: ""
-  });
+  if (!req.session.loggedin) {
+    res.render("requestforstudent", {
+      header: "student",
+      backbutton: ""
+    });
+  } else {
+    res.redirect("/");
+  }
 });
 app.get("/requeststd/IT", function (req, res) {
   if (!req.session.loggedin) {

@@ -156,8 +156,12 @@ app.get("/",function(req,res){
 })
 
 app.get("/login",function(req,res){
-	res.render("login")
-
+	if(req.session.userID != null && req.session.loggedin != null){
+		res.render("/")
+	}
+	else{
+		res.render("login")
+	}
 })
 
 
@@ -1769,12 +1773,9 @@ async function getcountoflists(req,res){
 			resolve(0);
 		}
 	})})
-	if(requests[0].count, receives[0].count, news[0].count){
+	
 	listscount = [requests[0].count, receives[0].count, news[0].count]
-	}
-	else{
-		listscount = [0,0,0]
-	}
+
 	connection.end()
 	return listscount
 }
@@ -1783,12 +1784,16 @@ async function getcountoflists(req,res){
 
 // for student
 app.get("/requeststd",function(req,res){
+	if(!req.session.loggedin){
 	res.render("requestforstudent",
 	{
 		header : "student",
 		backbutton : ""
-
 	})
+	}
+	else{
+		res.redirect("/")
+	}
 })
 
 
