@@ -5,6 +5,9 @@
         background: url(/background-01.jpg) ;
         background-attachment: fixed;
         background-size: cover;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
     }
 
     /* width */
@@ -148,8 +151,6 @@
     .usermenu a:hover{
         opacity: 1;
         background: rgb(32, 32, 32, 1);
-
-
     }
     /* #burger menu */
     .burgerbox{

@@ -3,6 +3,8 @@ body{
     background-attachment: fixed;
     background-size: cover;
     overflow-x: hidden;
+    min-height: 100vh;
+
 }
 
 input[type="submit"]{
