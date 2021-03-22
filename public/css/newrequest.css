@@ -222,7 +222,7 @@
     display: flex;
 }
 
-    @media only screen and (max-width: 650px){
+    @media only screen and (max-width: 900px){
     .requestbox{
         background: white;
         width: 95%;
@@ -230,5 +230,29 @@
         margin: 0 auto;
         padding: 10px;
         text-align: center;
+    }
+    
+    #productid, #productname, #position, #des{
+        border: none;
+        border: solid 1px rgb(206, 206, 206);
+        border-right: none;
+        height: 30px;
+        padding-left: 10px;
+        display: block;
+        float: left;
+        width: 100%;
+    }
+    .deletebtn{
+        position: absolute;
+        width: 50px;
+        padding: 0 0;
+        background: #fc3d39;
+        border:none;
+        color: white;
+        outline: none;
+        cursor: pointer;
+        transition: .5s;
+        display: inline-block;
+        height: 120px;
     }
     }

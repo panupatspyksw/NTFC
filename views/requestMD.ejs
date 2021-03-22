@@ -19,14 +19,18 @@
         <% products.forEach(element => { %>
             <option value="<%=element%>"><%= element %></option>
         <% }); %>
+        <option value="อื่นๆ">อื่นๆ</option>
+
     </select>
-    <select id="position" name="position" required>
+    <input id="position" name="position" placeholder="ระบุชั้นหรือห้อง..." maxlength='20' required>
+
+    <!-- <select id="position" name="position" required>
         <option value="" disabled selected hidden>ระบุชั้นหรือห้อง...</option>
         <% locations.forEach(element => { %>
             <option value="<%=element%>"><%=element%></option>
         <% }); %>
 
-    </select>
+    </select> -->
     <input type="text" id="des" value="" name="des" placeholder="หมายเหตุ" maxlength="90">
     <button type="button" onclick="deleterow(this)"  class="deletebtn"><i class="far fa-trash-alt" ></i></button>
 </fieldset>
@@ -67,14 +71,18 @@
                                 <% products.forEach(element => { %>
                                     <option value="<%=element%>"><%=element%></option>
                                 <% }); %>
+                                <option value="อื่นๆ">อื่นๆ</option>
+
                             </select>
-                            <select id="position" name="position" required>
+                            <input id="position" name="position" placeholder="ระบุชั้นหรือห้อง..." maxlength='20' required>
+
+                            <!-- <select id="position" name="position" required>
                                 <option value="" disabled selected hidden>ระบุชั้นหรือห้อง...</option>
                                 <% locations.forEach(element => { %>
                                     <option value="<%=element%>"><%=element%></option>
                                 <% }); %>
                         
-                            </select>
+                            </select> -->
                             <input type="text" id="des" value="" name="des" placeholder="หมายเหตุ" maxlength="90">
                             <button type="button" onclick="deleterow(this)"  class="deletebtn"><i class="far fa-trash-alt" ></i></button>
                         </fieldset>
@@ -89,6 +97,9 @@
                         </section>
                     </div>
                 </div>
+                <p style="text-align: left; margin-top: 10px;">
+                    ***หากไม่มีรายการอุปกรณ์ที่จะแจ้งซ่อม ให้เลือก อื่นๆ และกรอกรายละเอียดในช่องหมายเหตุ
+                </p>
             <input type="submit" id="submit" value="request" style="margin-top: 20px;">
         </div>
     </form>

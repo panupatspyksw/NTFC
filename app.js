@@ -672,7 +672,7 @@ app.post('/requestMD', upload.array('images', 10), (req, res, next) => {
 				})
 			});
 			const requestkey = await new Promise(function(resolve, reject) {
-				connection.query('INSERT INTO request SET req_ID=?,req_title=?,req_status_id=1,req_type_id=2,req_createdby=?,req_des=?',[requestID,req.body.title,req.session.userID,req.body.description], function(err, results, field) {
+				connection.query('INSERT INTO request SET req_ID=?,req_title=?,req_status_id=1,req_type_id=2,req_createdby=?,req_des=?,req_end=now()',[requestID,req.body.title,req.session.userID,req.body.description], function(err, results, field) {
 					resolve(results);
 				})
 			});
@@ -813,7 +813,7 @@ app.post('/requestBD', upload.array('images', 10), (req, res, next) => {
 				})
 			});
 			const requestkey = await new Promise(function(resolve, reject) {
-				connection.query('INSERT INTO request SET req_ID=?,req_title=?,req_status_id=1,req_type_id=3,req_createdby=?,req_des=?',[requestID,req.body.title,req.session.userID,req.body.description], function(err, results, field) {
+				connection.query('INSERT INTO request SET req_ID=?,req_title=?,req_status_id=1,req_type_id=3,req_createdby=?,req_des=?,req_end=now()',[requestID,req.body.title,req.session.userID,req.body.description], function(err, results, field) {
 					resolve(results);
 				})
 			});
