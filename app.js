@@ -143,6 +143,10 @@ app.use(function(req, res, next) {
 	next();
   });
 
+app.get('/sitemap.xml', function(req, res) {
+res.sendFile('certificatefile/sitemap.xml', { root: '.' });
+});
+
 app.get("/",function(req,res){
     if(req.session.userID != null && req.session.loggedin != null){
         res.redirect("/request")
