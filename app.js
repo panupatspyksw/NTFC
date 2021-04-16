@@ -161,7 +161,7 @@ app.get("/",function(req,res){
 
 app.get("/login",function(req,res){
 	if(req.session.userID != null && req.session.loggedin != null){
-		res.render("/")
+		res.redirect("/")
 	}
 	else{
 		res.render("login")
