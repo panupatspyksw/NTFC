@@ -26,11 +26,11 @@ const e = require('express');
 // };
 var db_config = {
 	host     : 'mysql-repaironlineservice2-13336.nodechef.com',
-	user     : 'ncuser_7811',
-	password : 'pxkzWQuIEQV5kL8fECk6LjCQHqUCk4',
+	user     : 'ncuser_2377',
+	password : 'WTNLMfDq6YcoSgHRxMnGean8F78yft',
 	database : 'repaironlineservice2',
 	connectionLimit: 100,
-	port: '2409'
+	port: '2399'
 };
 // setup router
 router.use(express.static("public"));
@@ -1318,6 +1318,7 @@ router.post("/dashboard/PS",(req,res)=>{
 						}
 					}
 					if(err){
+						console.log(err)
 					}
 				})
 			});
@@ -1385,6 +1386,8 @@ router.post("/dashboard/PS",(req,res)=>{
 						}
 					}
 					if(err){
+						console.log(err)
+
 					}
 				})
 			});
@@ -1447,6 +1450,8 @@ router.post("/dashboard/PS",(req,res)=>{
 						}
 					}
 					if(err){
+						console.log(err)
+
 					}
 				})
 			});
@@ -1553,7 +1558,10 @@ router.post("/dashboard/PS",(req,res)=>{
 						})
 					}
 					else{
+						console.log(err)
+
 						resolve(0)
+
 					} 
 				})
 			})
