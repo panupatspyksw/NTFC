@@ -114,7 +114,6 @@ app.get("/",function(req,res){
     }
     else{
         res.render("index",{
-			aa : "helloworld"
 		});
     }
 })
