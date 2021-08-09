@@ -11,80 +11,8 @@ const { count, Console } = require('console');
 const nodemailer = require('nodemailer');
 const { send } = require('process');
 var MemoryStore = require('memorystore')(session)
+var db_config = require('../database/config')
 
-var db_config = {
-	host     : 'mysql-repaironlineservice2-13336.nodechef.com',
-	user     : 'ncuser_2377',
-	password : 'WTNLMfDq6YcoSgHRxMnGean8F78yft',
-	database : 'repaironlineservice2',
-	connectionLimit: 100,
-	port: '2399'
-};
-//   function handleDisconnect() {
-// 	connection = mysql.createConnection(db_config); // Recreate the connection, since
-// 													// the old one cannot be reused.
-  
-// 	connection.connect(function(err) {              // The server is either down
-// 	  if(err) {                                     // or restarting (takes a while sometimes).
-// 		console.log('error when connecting to db:', err);
-// 		setTimeout(handleDisconnect, 2000); // We introduce a delay before attempting to reconnect,
-// 	  }                                     // to avoid a hot loop, and to allow our node script to
-// 	});                                     // process asynchronous requests in the meantime.
-// 											// If you're also serving http, display a 503 error.
-// 	connection.on('error', function(err) {
-// 	  console.log('db error', err);
-// 	  if(err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
-// 		handleDisconnect();                         // lost due to either server restart, or a
-// 	  } else {                                      // connnection idle timeout (the wait_timeout
-// 		throw err;                                  // server variable configures this)
-// 	  }
-// 	});
-//   }
-  
-//   handleDisconnect();
-
-//   const pool = mysql.createPool({
-// 	host     : 'us-cdbr-east-02.cleardb.com',
-// 	user     : 'bbc5aa79adb978',
-// 	password : 'bc3f80a0',
-// 	database : 'heroku_967c364b1d024e2'
-//   });
-  
-//   // ... later
-//   setInterval(function () {
-// 	connection.query("SET time_zone = '+07:00'", function(err, results, field) {})
-// 	pool.query('select 1 + 1', (err, rows) => { /* */ });
-// }, 5000);
-
-
-// var connection = mysql.createConnection({
-// 	host     : 'localhost',
-// 	user     : 'root',
-// 	password : '',
-// 	database : 'notification'
-// });
-
-// setup router
-router.use(express.static("public"));
-router.use(express.static("img"));
-router.use(bodyParser.urlencoded({extended : true}));
-router.use(bodyParser.json());
-router.use(session({
-	secret: 'secret',
-    cookie: { maxAge: 86400000 },
-    store: new MemoryStore({
-      checkPeriod: 86400000 // prune expired entries every 24h
-    }),
-    resave: true,
-	secret: 'keyboard cat',
-	saveUninitialized: true,
-
-}))
-//Middle ware that is specific to this router
-router.use(function timeLog(req, res, next) {
-//   console.log('Time: ', Date.now());
-  next();
-});
 
 // setup email auth for send
 const transporter = nodemailer.createTransport({
@@ -293,7 +221,7 @@ router.get("/refreshsession",(req,res)=>{
 			})
 	}
 	else{
-		res.send("no found")
+		res.redirect("/")
 	}
 })
 

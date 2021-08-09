@@ -3,21 +3,23 @@ var express = require('express');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var path = require('path');
-var app = express();
-var port = process.env.PORT || 8000;
 var alert = require('alert')
 var multer  = require('multer');
 var fs = require('fs');
-const { read } = require('fs');
-const { type } = require('os');
-const { count } = require('console');
-const { request } = require('http');
-const nodemailer = require('nodemailer');
-const { verify } = require('crypto');
-var defaultimg = "defaultprofile.png";
+const nodemailer = require('nodemailer')
 var MemoryStore = require('memorystore')(session)
 var bcrypt = require('bcryptjs');
-const { createConnection } = require('net');
+
+
+var port = process.env.PORT || 8000;
+var defaultimg = "defaultprofile.png";
+var db_config = require('./database/config')
+var app = express();
+
+
+
+
+
 app.use(session({
 	secret: 'secret',
     cookie: { maxAge: 86400000 },
@@ -25,73 +27,9 @@ app.use(session({
       checkPeriod: 86400000 // prune expired entries every 24h
     }),
     resave: true,
-	secret: 'keyboard cat',
 	saveUninitialized: true,
-
 }))
 
-
-
-// var connection
-// var db_config = {
-// 	host     : 'us-cdbr-east-02.cleardb.com',
-// 	user     : 'bbc5aa79adb978',
-// 	password : 'bc3f80a0',
-// 	database : 'heroku_967c364b1d024e2'
-//   };
-// var db_config = {
-// 	host     : 'mysql-repaironlineservice-13336.nodechef.com',
-// 	user     : 'ncuser_11731',
-// 	password : 'ugMBcMnhJYLmEXyirVc0IhIxp55xMs',
-// 	database : 'repaironlineservice',
-// 	connectionLimit: 100,
-// 	port: '2397'
-
-// };
-var db_config = {
-	host     : 'mysql-repaironlineservice2-13336.nodechef.com',
-	user     : 'ncuser_2377',
-	password : 'WTNLMfDq6YcoSgHRxMnGean8F78yft',
-	database : 'repaironlineservice2',
-	connectionLimit: 100,
-	port: '2399'
-};
-// var connection = mysql.createConnection(db_config);
-  
-  function handleDisconnect() {
-	  
- // Recreate the connection, since
-													// the old one cannot be reused.
-	var connection = mysql.createConnection(db_config);
-	connection.connect(function(err) {              // The server is either down
-	  if(err) {                                     // or restarting (takes a while sometimes).
-		setTimeout(handleDisconnect, 2000); // We introduce a delay before attempting to reconnect,
-	  }                                     // to avoid a hot loop, and to allow our node script to
-	});                                     // process asynchronous requests in the meantime.
-											// If you're also serving http, display a 503 error.
-	connection.on('error', function(err) {
-	  if(err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
-		handleDisconnect();                         // lost due to either server restart, or a
-	  } else {                                      // connnection idle timeout (the wait_timeout
-		throw err;                                  // server variable configures this)
-	  }
-	});
-  }
-  
-  handleDisconnect();
-
- 
-  
-  // ... later
-//   setInterval(function () {
-// 	connection.query("SET time_zone = '+07:00'", function(err, results, field) {
-// 	})
-// 	db_config.query('select 1 + 1', (err, rows) => { /* */ });
-// }, 5000);
-
-
-app.use(require('./routes/ajaxreq.js')); 
-app.use(require('./routes/admin.js')); 
 
 app.use(express.static("public"));
 app.use(express.static("img"));
@@ -99,6 +37,39 @@ app.set("view engine","ejs");
 
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
+
+app.use(function(req, res, next) {
+	res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+	res.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+	res.setHeader("Expires", "0"); // Proxies.
+	res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+	next();
+});
+
+
+  function handleDisconnect() {
+	  
+	var connection = mysql.createConnection(db_config);
+	connection.connect(function(err) {              
+	  if(err) {                                     
+		setTimeout(handleDisconnect, 2000); 
+	  }                                     
+	});                                     
+										
+	connection.on('error', function(err) {
+	  if(err.code === 'PROTOCOL_CONNECTION_LOST') {
+		handleDisconnect();                         
+	  } else {                                      
+		throw err;                                  
+	  }
+	});
+  }
+  
+  handleDisconnect();
+
+
+
+
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -128,20 +99,9 @@ const upload = multer({
 
 
 
+app.use('/',require('./routes/ajaxreq.js')); 
+app.use('/',require('./routes/admin.js')); 
 
-
-
-
-
-
-
-app.use(function(req, res, next) {
-	res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
-	res.setHeader("Pragma", "no-cache"); // HTTP 1.0.
-	res.setHeader("Expires", "0"); // Proxies.
-	res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-	next();
-  });
 
 app.get('/sitemap.xml', function(req, res) {
 res.sendFile('certificatefile/sitemap.xml', { root: '.' });
@@ -169,13 +129,6 @@ app.get("/login",function(req,res){
 })
 
 
-
-
-app.get("/transition",function(req,res){
-	res.render("transitionload")
-})
-
-
 app.get("/auth",function(req,res){
 	res.redirect("/");
 })
@@ -195,19 +148,13 @@ app.post("/auth",function(req,res){
 				if(resultt == true){
 				req.session.loggedin = true;
 				req.session.loadlogin = true;
-				user_id = results[0].user_id;
-				user_firstname = results[0].user_firstname;
-				user_firstname = results[0].user_firstname;
-				user_lastname = results[0].user_lastname;
-				user_usertype = results[0].user_typeID;
-				user_departmentID = results[0].user_departmentID;
-				req.session.userID = user_id;
-				req.session.user_departmentID = user_departmentID;
-				req.session.user_usertype = user_usertype;
-				req.session.user_firstname = user_firstname;
+				req.session.userID = results[0].user_id;
+				req.session.user_departmentID = results[0].user_departmentID;
+				req.session.user_usertype = results[0].user_typeID;
+				req.session.user_firstname = results[0].user_firstname;
 				req.session.phone = results[0].user_phone;
-				req.session.fname = user_firstname;
-				req.session.lname = user_lastname;
+				req.session.fname = results[0].user_firstname;
+				req.session.lname = results[0].user_lastname;
 				req.session.profileimage = results[0].profileimg
 				res.redirect("/")
 				}
@@ -427,7 +374,6 @@ app.get("/request",function(req,res){
 	}
 })
 
-var locationdata = [];
 app.get("/requestIT",function(req,res){
 
 	if((req.session.loggedin && req.session.user_departmentID != 1) || (req.session.loggedin && req.session.user_usertype == "3")){
@@ -1378,7 +1324,7 @@ app.post("/newlist/:id",function(req,res){
 	}
 })
 
-app.get("/receivelist?",function(req,res){
+app.get("/receivelist",function(req,res){
 	
 	if(req.session.loggedin && req.session.user_usertype == "2"){
 		var countstatus = [];
@@ -2505,16 +2451,11 @@ function timeforreqlist(reqcreated){
 
 
 app.get("*",function(req,res){
-	res.send("page not found.")
+	res.render("pagenotfound")
 	res.end()
 })
 
 
 app.listen(port, () => {
-	var connection = mysql.createConnection(db_config);
-
-	connection.query("SET time_zone = '+07:00'", function(err, results, field) {
-		connection.end()
-	})
    console.log("Server Connected!!");
 })

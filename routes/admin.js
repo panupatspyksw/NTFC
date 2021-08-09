@@ -5,44 +5,9 @@ var mysql = require('mysql');
 var bodyParser = require('body-parser');
 var path = require('path');
 var multer  = require('multer');
-const { read } = require('fs');
-const { type } = require('os');
-const { count } = require('console');
 const nodemailer = require('nodemailer');
-const { send } = require('process');
-const { route, all } = require('./ajaxreq');
-const { start } = require('repl');
-const { throws } = require('assert');
-const e = require('express');
+var db_config = require('../database/config')
 
-// var db_config = {
-// 	host     : 'mysql-repaironlineservice-13336.nodechef.com',
-// 	user     : 'ncuser_11731',
-// 	password : 'ugMBcMnhJYLmEXyirVc0IhIxp55xMs',
-// 	database : 'repaironlineservice',
-// 	connectionLimit: 100,
-// 	port: '2397'
-
-// };
-var db_config = {
-	host     : 'mysql-repaironlineservice2-13336.nodechef.com',
-	user     : 'ncuser_2377',
-	password : 'WTNLMfDq6YcoSgHRxMnGean8F78yft',
-	database : 'repaironlineservice2',
-	connectionLimit: 100,
-	port: '2399'
-};
-// setup router
-router.use(express.static("public"));
-router.use(express.static("img"));
-router.use(bodyParser.urlencoded({extended : true}));
-router.use(bodyParser.json());
-
-router.use(session({
-	secret: 'secret',
-	resave: true,
-	saveUninitialized: true
-}));
 
 //Middle ware that is specific to this router
 router.use(function timeLog(req, res, next) {
@@ -78,7 +43,7 @@ router.post("/dashboard/employee",(req,res)=>{
 		var startdate = req.body.start;
 		var enddate = req.body.end;
 		var employeeID = req.body.employeeID;
-		var chart = ["asd","asdasdasd"]
+		var chart = ["",""]
 		var work = []
 		var name = ""
 		var connection = mysql.createConnection(db_config);
